@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        ResQ | Blood Compatibility Checker
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<header class="navbar">
+
+    <a
+        href="index.html"
+        class="logo"
+    >
+
+        <span class="logo-icon">
+            🩸
+        </span>
+
+        Res<span>Q</span>
+
+    </a>
+
+
+    <div class="nav-actions">
+
+        <button
+            id="themeToggle"
+            class="theme-btn"
+        >
+
+            🌙
+
+        </button>
+
+
+        <a
+            href="index.html"
+            class="secondary-btn"
+        >
+
+            ← Back to Home
+
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- MAIN -->
+
+<main class="compatibility-page">
+
+
+    <section class="compatibility-box">
+
+
+        <div class="compatibility-heading">
+
+            <span class="form-badge">
+
+                🩸 SMART BLOOD MATCHING
+
+            </span>
+
+
+            <h1>
+
+                Blood Compatibility
+
+                <span>
+                    Checker
+                </span>
+
+            </h1>
+
+
+            <p>
+
+                Select the patient's required blood group
+                and the donor's blood group to check
+                compatibility.
+
+            </p>
+
+        </div>
+
+
+        <!-- FORM -->
+
+        <form id="compatibilityForm">
+
+
+            <div class="compatibility-grid">
+
+
+                <!-- Recipient -->
+
+                <div class="blood-select-card">
+
+                    <div class="blood-icon">
+
+                        🧑‍⚕️
+
+                    </div>
+
+
+                    <h2>
+
+                        Patient / Recipient
+
+                    </h2>
+
+
+                    <p>
+
+                        Required Blood Group
+
+                    </p>
+
+
+                    <select
+                        id="recipientBlood"
+                        required
+                    >
+
+                        <option value="">
+
+                            Select Blood Group
+
+                        </option>
+
+                        <option value="A+">
+                            A+
+                        </option>
+
+                        <option value="A-">
+                            A-
+                        </option>
+
+                        <option value="B+">
+                            B+
+                        </option>
+
+                        <option value="B-">
+                            B-
+                        </option>
+
+                        <option value="AB+">
+                            AB+
+                        </option>
+
+                        <option value="AB-">
+                            AB-
+                        </option>
+
+                        <option value="O+">
+                            O+
+                        </option>
+
+                        <option value="O-">
+                            O-
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Arrow -->
+
+                <div class="match-arrow">
+
+                    ↔
+
+                </div>
+
+
+                <!-- Donor -->
+
+                <div class="blood-select-card">
+
+                    <div class="blood-icon">
+
+                        🩸
+
+                    </div>
+
+
+                    <h2>
+
+                        Donor
+
+                    </h2>
+
+
+                    <p>
+
+                        Available Blood Group
+
+                    </p>
+
+
+                    <select
+                        id="donorBlood"
+                        required
+                    >
+
+                        <option value="">
+
+                            Select Blood Group
+
+                        </option>
+
+                        <option value="A+">
+                            A+
+                        </option>
+
+                        <option value="A-">
+                            A-
+                        </option>
+
+                        <option value="B+">
+                            B+
+                        </option>
+
+                        <option value="B-">
+                            B-
+                        </option>
+
+                        <option value="AB+">
+                            AB+
+                        </option>
+
+                        <option value="AB-">
+                            AB-
+                        </option>
+
+                        <option value="O+">
+                            O+
+                        </option>
+
+                        <option value="O-">
+                            O-
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="check-btn"
+            >
+
+                Check Compatibility 🩸
+
+            </button>
+
+
+        </form>
+
+
+        <!-- RESULT -->
+
+        <div
+            id="compatibilityResult"
+            class="compatibility-result"
+        >
+
+        </div>
+
+
+        <p class="medical-note">
+
+            ⚠️ This tool is for educational and
+            project demonstration purposes.
+            Actual blood transfusion decisions must
+            be made by qualified healthcare professionals.
+
+        </p>
+
+
+    </section>
+
+</main>
+
+
+<script src="js/compatibility.js"></script>
+
+</body>
+
+</html>

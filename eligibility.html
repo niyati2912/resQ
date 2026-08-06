@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        ResQ | Donation Eligibility
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<header class="navbar">
+
+    <a
+        href="index.html"
+        class="logo"
+    >
+
+        <span class="logo-icon">
+            🩸
+        </span>
+
+        Res<span>Q</span>
+
+    </a>
+
+
+    <div class="nav-actions">
+
+        <button
+            id="themeToggle"
+            class="theme-btn"
+        >
+
+            🌙
+
+        </button>
+
+
+        <a
+            href="index.html"
+            class="secondary-btn"
+        >
+
+            ← Back to Home
+
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- MAIN -->
+
+<main class="eligibility-page">
+
+
+    <section class="eligibility-box">
+
+
+        <div class="eligibility-heading">
+
+            <span class="form-badge">
+
+                🩺 DONATION CHECK
+
+            </span>
+
+
+            <h1>
+
+                Check Your
+
+                <span>
+                    Eligibility
+                </span>
+
+            </h1>
+
+
+            <p>
+
+                Enter your details to get a basic
+                eligibility result for the ResQ project.
+
+            </p>
+
+        </div>
+
+
+        <!-- FORM -->
+
+        <form id="eligibilityForm">
+
+
+            <div class="eligibility-grid">
+
+
+                <!-- Age -->
+
+                <div class="input-group">
+
+                    <label for="age">
+
+                        Age
+
+                    </label>
+
+
+                    <input
+                        type="number"
+                        id="age"
+                        placeholder="Enter your age"
+                        min="1"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Weight -->
+
+                <div class="input-group">
+
+                    <label for="weight">
+
+                        Weight (kg)
+
+                    </label>
+
+
+                    <input
+                        type="number"
+                        id="weight"
+                        placeholder="Enter your weight"
+                        min="1"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Last Donation -->
+
+                <div class="input-group">
+
+                    <label for="lastDonation">
+
+                        Last Blood Donation
+
+                    </label>
+
+
+                    <select
+                        id="lastDonation"
+                        required
+                    >
+
+                        <option value="">
+
+                            Select an option
+
+                        </option>
+
+                        <option value="never">
+
+                            Never donated
+
+                        </option>
+
+                        <option value="recent">
+
+                            Less than 3 months ago
+
+                        </option>
+
+                        <option value="eligible">
+
+                            3 months or more ago
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Health -->
+
+                <div class="input-group">
+
+                    <label for="healthStatus">
+
+                        Current Health Status
+
+                    </label>
+
+
+                    <select
+                        id="healthStatus"
+                        required
+                    >
+
+                        <option value="">
+
+                            Select status
+
+                        </option>
+
+                        <option value="healthy">
+
+                            Feeling healthy
+
+                        </option>
+
+                        <option value="unwell">
+
+                            Currently unwell
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="check-btn"
+            >
+
+                Check Eligibility →
+
+            </button>
+
+        </form>
+
+
+        <!-- RESULT -->
+
+        <div
+            id="eligibilityResult"
+            class="eligibility-result"
+        >
+
+        </div>
+
+
+        <p class="medical-note">
+
+            ⚠️ This is an educational project screening
+            only. Final eligibility must be determined
+            by a qualified blood bank or healthcare professional.
+
+        </p>
+
+    </section>
+
+</main>
+
+
+<script src="js/eligibility.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Find Blood | ResQ</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <!-- Google Font -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<header class="navbar">
+
+    <a
+        href="index.html"
+        class="logo"
+    >
+
+        <span class="logo-icon">
+            🩸
+        </span>
+
+        Res<span>Q</span>
+
+    </a>
+
+
+    <div class="nav-actions">
+
+        <a
+            href="index.html"
+            class="secondary-btn"
+        >
+
+            ← Back to Home
+
+        </a>
+
+    </div>
+
+</header>
+
+
+
+<main class="find-blood-page">
+
+
+<!-- PAGE HEADING -->
+
+<section class="find-blood-intro">
+
+    <span class="find-blood-badge">
+
+        🔎 FIND A BLOOD DONOR
+
+    </span>
+
+
+    <h1>
+
+        Find Blood
+
+        <span>Near You</span>
+
+    </h1>
+
+
+    <p>
+
+        Search available blood donors
+        by blood group and city.
+
+    </p>
+
+</section>
+
+
+
+<!-- SEARCH BOX -->
+
+<section class="blood-search-container">
+
+
+<form id="bloodSearchForm">
+
+
+<div class="search-group">
+
+<label for="searchBloodGroup">
+
+Blood Group
+
+</label>
+
+
+<select id="searchBloodGroup">
+
+<option value="">
+
+Select blood group
+
+</option>
+
+
+<option value="A+">
+
+A+
+
+</option>
+
+
+<option value="A-">
+
+A-
+
+</option>
+
+
+<option value="B+">
+
+B+
+
+</option>
+
+
+<option value="B-">
+
+B-
+
+</option>
+
+
+<option value="AB+">
+
+AB+
+
+</option>
+
+
+<option value="AB-">
+
+AB-
+
+</option>
+
+
+<option value="O+">
+
+O+
+
+</option>
+
+
+<option value="O-">
+
+O-
+
+</option>
+
+</select>
+
+</div>
+
+
+
+<div class="search-group">
+
+<label for="searchCity">
+
+City
+
+</label>
+
+
+<input
+    type="text"
+    id="searchCity"
+    placeholder="Enter city name"
+>
+
+</div>
+
+
+
+<button
+    type="submit"
+    class="search-blood-btn"
+>
+
+🔎 Search Donors
+
+</button>
+
+
+</form>
+
+</section>
+
+
+
+<!-- SEARCH MESSAGE -->
+
+<p id="searchMessage"></p>
+
+
+
+<!-- DONOR RESULTS -->
+
+<section
+    id="donorResults"
+    class="donor-results"
+>
+
+</section>
+
+<!-- CONTACT DONOR POPUP -->
+
+<div
+    id="contactModal"
+    class="contact-modal"
+>
+
+    <div class="contact-modal-box">
+
+        <!-- Close Button -->
+
+        <button
+            id="closeModal"
+            class="close-modal"
+        >
+            
+        </button>
+
+
+        <div class="modal-icon">
+            🩸
+        </div>
+
+
+        <h2>
+            Contact Donor
+        </h2>
+
+
+        <p>
+            You can contact the available donor
+            using the details below.
+        </p>
+
+
+        <div class="contact-details">
+
+            <p>
+
+                <strong>
+                    Donor:
+                </strong>
+
+                <span id="modalDonorName">
+                </span>
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Blood Group:
+                </strong>
+
+                <span id="modalBloodGroup">
+                </span>
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    City:
+                </strong>
+
+                <span id="modalCity">
+                </span>
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Phone:
+                </strong>
+
+                <span id="modalPhone">
+                </span>
+
+            </p>
+
+        </div>
+
+
+        <a
+            id="callDonor"
+            class="call-donor-btn"
+            href="#"
+        >
+
+            📞 Call Donor
+
+        </a>
+
+    </div>
+
+</div>
+
+
+</main>
+
+
+
+<script src="js/find-blood.js"></script>
+
+
+</body>
+
+</html>

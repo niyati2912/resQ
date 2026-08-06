@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Emergency Blood Request | ResQ</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- Navbar -->
+
+    <header class="navbar">
+
+        <a
+            href="index.html"
+            class="logo"
+        >
+            <span class="logo-icon">
+                🩸
+            </span>
+
+            Res<span>Q</span>
+        </a>
+
+
+        <div class="nav-actions">
+
+            <a
+                href="index.html"
+                class="secondary-btn"
+            >
+                ← Back to Home
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <main class="emergency-page">
+
+        <!-- Page Heading -->
+
+        <section class="emergency-intro">
+
+            <span class="emergency-page-badge">
+
+                🚨 URGENT BLOOD SUPPORT
+
+            </span>
+
+            <h1>
+
+                Request Blood
+
+                <span>Immediately</span>
+
+            </h1>
+
+            <p>
+
+                Submit the required details.
+                ResQ will help connect you
+                with available donors.
+
+            </p>
+
+        </section>
+
+
+        <!-- Emergency Form -->
+
+        <section class="emergency-form-container">
+
+            <form id="emergencyForm">
+
+
+                <!-- Patient Name -->
+
+                <div class="form-group">
+
+                    <label for="patientName">
+
+                        Patient Name
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="patientName"
+                        placeholder="Enter patient name"
+                    >
+
+                    <small
+                        class="error-message"
+                        id="patientError"
+                    ></small>
+
+                </div>
+
+
+                <!-- Blood Group -->
+
+                <div class="form-group">
+
+                    <label for="requiredBlood">
+
+                        Required Blood Group
+
+                    </label>
+
+                    <select id="requiredBlood">
+
+                        <option value="">
+
+                            Select blood group
+
+                        </option>
+
+                        <option value="A+">A+</option>
+
+                        <option value="A-">A-</option>
+
+                        <option value="B+">B+</option>
+
+                        <option value="B-">B-</option>
+
+                        <option value="AB+">AB+</option>
+
+                        <option value="AB-">AB-</option>
+
+                        <option value="O+">O+</option>
+
+                        <option value="O-">O-</option>
+
+                    </select>
+
+                    <small
+                        class="error-message"
+                        id="requiredBloodError"
+                    ></small>
+
+                </div>
+
+
+                <!-- Hospital -->
+
+                <div class="form-group">
+
+                    <label for="hospital">
+
+                        Hospital Name
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="hospital"
+                        placeholder="Enter hospital name"
+                    >
+
+                    <small
+                        class="error-message"
+                        id="hospitalError"
+                    ></small>
+
+                </div>
+
+
+                <!-- City -->
+
+                <div class="form-group">
+
+                    <label for="requestCity">
+
+                        City
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="requestCity"
+                        placeholder="Enter city"
+                    >
+
+                    <small
+                        class="error-message"
+                        id="requestCityError"
+                    ></small>
+
+                </div>
+
+
+                <!-- Contact -->
+
+                <div class="form-group">
+
+                    <label for="contactNumber">
+
+                        Contact Number
+
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="contactNumber"
+                        placeholder="Enter 10-digit number"
+                    >
+
+                    <small
+                        class="error-message"
+                        id="contactError"
+                    ></small>
+
+                </div>
+
+
+                <!-- Units -->
+
+                <div class="form-group">
+
+                    <label for="bloodUnits">
+
+                        Units Required
+
+                    </label>
+
+                    <input
+                        type="number"
+                        id="bloodUnits"
+                        placeholder="Example: 2"
+                        min="1"
+                    >
+
+                    <small
+                        class="error-message"
+                        id="unitsError"
+                    ></small>
+
+                </div>
+
+
+                <!-- Urgency -->
+
+                <div class="form-group full-width">
+
+                    <label for="urgency">
+
+                        Emergency Level
+
+                    </label>
+
+                    <select id="urgency">
+
+                        <option value="">
+
+                            Select emergency level
+
+                        </option>
+
+                        <option value="Critical">
+
+                            🔴 Critical
+
+                        </option>
+
+                        <option value="Urgent">
+
+                            🟠 Urgent
+
+                        </option>
+
+                        <option value="Normal">
+
+                            🟢 Normal
+
+                        </option>
+
+                    </select>
+
+                    <small
+                        class="error-message"
+                        id="urgencyError"
+                    ></small>
+
+                </div>
+
+
+                <!-- Submit -->
+
+                <button
+                    type="submit"
+                    class="emergency-submit-btn"
+                >
+
+                    🚨 Submit Emergency Request
+
+                </button>
+
+
+                <p id="emergencyMessage"></p>
+                <div id="emergencyList"></div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+    <script src="js/emergency.js"></script>
+
+</body>
+
+</html>

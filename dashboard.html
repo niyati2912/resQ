@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ResQ Dashboard</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- Navbar -->
+
+    <header class="navbar">
+
+        <a
+            href="index.html"
+            class="logo"
+        >
+
+            <span class="logo-icon">
+                🩸
+            </span>
+
+            Res<span>Q</span>
+
+        </a>
+
+
+        <div class="nav-actions">
+
+            <a
+                href="index.html"
+                class="secondary-btn"
+            >
+
+                ← Back to Home
+
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <main class="dashboard-page">
+
+
+        <!-- Dashboard Heading -->
+
+        <section class="dashboard-heading">
+
+            <div>
+
+                <span class="form-badge">
+
+                    📊 RESQ CONTROL CENTER
+
+                </span>
+
+
+                <h1>
+
+                    ResQ
+
+                    <span>Dashboard</span>
+
+                </h1>
+
+
+                <p>
+
+                    Track donors and emergency
+                    blood requests in one place.
+
+                </p>
+
+            </div>
+
+
+            <button
+                id="refreshDashboard"
+                class="refresh-btn"
+            >
+
+                ↻ Refresh Data
+
+            </button>
+
+        </section>
+
+
+        <!-- Dashboard Stats -->
+
+        <section class="dashboard-stats">
+
+
+            <article class="dashboard-stat">
+
+                <div class="dashboard-icon">
+
+                    🩸
+
+                </div>
+
+
+                <div>
+
+                    <h2 id="totalDonors">
+
+                        0
+
+                    </h2>
+
+
+                    <p>
+
+                        Total Donors
+
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <article class="dashboard-stat">
+
+                <div class="dashboard-icon green">
+
+                    🟢
+
+                </div>
+
+
+                <div>
+
+                    <h2 id="availableDonors">
+
+                        0
+
+                    </h2>
+
+
+                    <p>
+
+                        Available Donors
+
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <article class="dashboard-stat">
+
+                <div class="dashboard-icon orange">
+
+                    🚨
+
+                </div>
+
+
+                <div>
+
+                    <h2 id="totalRequests">
+
+                        0
+
+                    </h2>
+
+
+                    <p>
+
+                        Blood Requests
+
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <article class="dashboard-stat">
+
+                <div class="dashboard-icon dark-red">
+
+                    🔴
+
+                </div>
+
+
+                <div>
+
+                    <h2 id="criticalRequests">
+
+                        0
+
+                    </h2>
+
+
+                    <p>
+
+                        Critical Requests
+
+                    </p>
+
+                </div>
+
+            </article>
+
+
+        </section>
+
+
+        <!-- Dashboard Lists -->
+
+        <section class="dashboard-lists">
+
+
+            <!-- Recent Donors -->
+
+            <article class="dashboard-panel">
+
+                <div class="panel-heading">
+
+                    <h2>
+
+                        🩸 Recent Donors
+
+                    </h2>
+
+
+                    <a
+                        href="find-blood.html"
+                    >
+
+                        View All →
+
+                    </a>
+
+                </div>
+
+
+                <div
+                    id="recentDonors"
+                    class="dashboard-items"
+                >
+
+                </div>
+
+            </article>
+
+
+            <!-- Recent Requests -->
+
+            <article class="dashboard-panel">
+
+                <div class="panel-heading">
+
+                    <h2>
+
+                        🚨 Emergency Requests
+
+                    </h2>
+
+
+                    <a
+                        href="emergency.html"
+                    >
+
+                        Add Request →
+
+                    </a>
+
+                </div>
+
+
+                <div
+                    id="recentRequests"
+                    class="dashboard-items"
+                >
+
+                </div>
+
+            </article>
+
+
+        </section>
+
+    </main>
+
+
+    <script src="js/dashboard.js"></script>
+
+</body>
+
+</html>
