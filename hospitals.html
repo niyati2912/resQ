@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        ResQ | Hospitals & Blood Banks
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+
+</head>
+
+
+<body>
+
+    <div class="app">
+
+        <aside
+            class="sidebar"
+            id="sidebar"
+        >
+
+            <a
+                class="brand"
+                href="index.html"
+            >
+
+                <img
+                    class="brand-logo"
+                    src="assets/resq-logo.png"
+                    alt="ResQ"
+                >
+
+                <span class="brand-name">
+
+                    Res<span>Q</span>
+
+                </span>
+
+            </a>
+
+
+            <nav class="nav">
+
+                <div class="nav-label">
+                    Main
+                </div>
+
+
+                <a
+                    class="nav-link"
+                    href="index.html"
+                >
+
+                    <i data-lucide="house"></i>
+
+                    <span class="nav-text">
+                        Home
+                    </span>
+
+                </a>
+
+
+                <a
+                    class="nav-link"
+                    href="find-blood.html"
+                >
+
+                    <i data-lucide="search"></i>
+
+                    <span class="nav-text">
+                        Find Blood
+                    </span>
+
+                </a>
+
+
+                <a
+                    class="nav-link active"
+                    href="hospitals.html"
+                >
+
+                    <i data-lucide="map"></i>
+
+                    <span class="nav-text">
+                        Hospitals
+                    </span>
+
+                </a>
+
+
+                <a
+                    class="nav-link"
+                    href="dashboard.html"
+                >
+
+                    <i data-lucide="layout-dashboard"></i>
+
+                    <span class="nav-text">
+                        Dashboard
+                    </span>
+
+                </a>
+
+
+                <div class="nav-label">
+                    Tools
+                </div>
+
+
+                <a
+                    class="nav-link"
+                    href="eligibility.html"
+                >
+
+                    <i data-lucide="clipboard-check"></i>
+
+                    <span class="nav-text">
+                        Eligibility
+                    </span>
+
+                </a>
+
+
+                <a
+                    class="nav-link"
+                    href="compatibility.html"
+                >
+
+                    <i data-lucide="git-compare"></i>
+
+                    <span class="nav-text">
+                        Compatibility
+                    </span>
+
+                </a>
+
+
+                <a
+                    class="nav-link"
+                    href="resources.html"
+                >
+
+                    <i data-lucide="newspaper"></i>
+
+                    <span class="nav-text">
+                        Resources
+                    </span>
+
+                </a>
+
+
+                <div class="nav-label">
+                    Account
+                </div>
+
+
+                <a
+                    class="nav-link"
+                    href="login.html"
+                >
+
+                    <i data-lucide="log-in"></i>
+
+                    <span class="nav-text">
+                        Login
+                    </span>
+
+                </a>
+
+
+                <a
+                    class="nav-link"
+                    href="signup.html"
+                >
+
+                    <i data-lucide="user-plus"></i>
+
+                    <span class="nav-text">
+                        Sign Up
+                    </span>
+
+                </a>
+
+            </nav>
+
+
+            <div class="sidebar-bottom">
+
+                <a
+                    class="emergency-link"
+                    href="emergency.html"
+                >
+
+                    <i data-lucide="siren"></i>
+
+                    <span class="emergency-text">
+                        I Need Blood Now
+                    </span>
+
+                </a>
+
+            </div>
+
+        </aside>
+
+
+        <main class="main">
+
+            <header class="topbar">
+
+                <div class="top-left">
+
+                    <button
+                        class="menu-btn"
+                        id="menuBtn"
+                        type="button"
+                    >
+
+                        <i data-lucide="menu"></i>
+
+                    </button>
+
+
+                    <button
+                        class="menu-btn nav-logo-btn"
+                        id="collapseBtn"
+                        type="button"
+                    >
+
+                        <img
+                            class="nav-toggle-logo"
+                            src="assets/resq-logo.png"
+                            alt="ResQ"
+                        >
+
+                    </button>
+
+
+                    <span class="top-title">
+                        Hospitals & blood banks
+                    </span>
+
+                </div>
+
+
+                <div class="top-right">
+
+                    <select
+                        class="lang"
+                        id="language"
+                    >
+
+                        <option value="en">
+                            EN
+                        </option>
+
+                        <option value="hi">
+                            हिन्दी
+                        </option>
+
+                        <option value="pa">
+                            ਪੰਜਾਬੀ
+                        </option>
+
+                    </select>
+
+
+                    <button
+                        class="theme-btn"
+                        id="themeBtn"
+                        type="button"
+                    >
+
+                        <i data-lucide="moon"></i>
+
+                    </button>
+
+
+                    <a
+                        class="account-btn"
+                        href="login.html"
+                    >
+
+                        <i data-lucide="user-round"></i>
+
+                        <span>
+                            Account
+                        </span>
+
+                    </a>
+
+                </div>
+
+            </header>
+
+
+            <section class="page hospital-page">
+
+
+                <div class="page-head hospital-page-head">
+
+                    <span class="eyebrow">
+                        MEDICAL SUPPORT
+                    </span>
+
+
+                    <h1>
+
+                        Find blood support
+
+                        <span>
+                            where you need it.
+                        </span>
+
+                    </h1>
+
+
+                    <p>
+
+                        Search any city in India to find
+                        hospitals, clinics and blood banks
+                        directly inside ResQ.
+
+                    </p>
+
+                </div>
+
+
+                <section class="hospital-search-panel">
+
+                    <label for="hospitalSearch">
+                        Search an Indian city
+                    </label>
+
+
+                    <div class="hospital-search-row">
+
+                        <input
+                            id="hospitalSearch"
+                            type="text"
+                            placeholder="Try Ambala, Chandigarh, Delhi or Jaipur"
+                            autocomplete="off"
+                        >
+
+
+                        <button
+                            class="btn btn-primary"
+                            id="hospitalSearchBtn"
+                            type="button"
+                        >
+
+                            <i data-lucide="search"></i>
+
+                            Search
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="map-filters">
+
+                        <button
+                            class="map-filter active"
+                            data-map-filter="all"
+                            type="button"
+                        >
+                            All
+                        </button>
+
+
+                        <button
+                            class="map-filter"
+                            data-map-filter="hospital"
+                            type="button"
+                        >
+                            Hospitals
+                        </button>
+
+
+                        <button
+                            class="map-filter"
+                            data-map-filter="blood-bank"
+                            type="button"
+                        >
+                            Blood Banks
+                        </button>
+
+                    </div>
+
+
+                    <p
+                        class="map-message"
+                        id="mapMessage"
+                    >
+                        Search a city to find nearby medical facilities.
+                    </p>
+
+                </section>
+
+
+                <div class="hospital-layout">
+
+
+                    <section class="hospital-results-panel">
+
+
+                        <div class="hospital-results-head">
+
+                            <div>
+
+                                <span class="section-kicker">
+                                    SEARCH RESULTS
+                                </span>
+
+                                <h2>
+                                    Medical facilities
+                                </h2>
+
+                            </div>
+
+
+                            <span
+                                class="result-count"
+                                id="hospitalResultCount"
+                            >
+                                0 results
+                            </span>
+
+                        </div>
+
+
+                        <div
+                            id="hospitalResults"
+                            class="hospital-results"
+                        >
+
+                            <div class="empty-hospitals">
+
+                                <strong>
+                                    Search for a city to begin.
+                                </strong>
+
+                                <p>
+                                    Hospitals and blood banks
+                                    will appear here.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                    <section class="map-box">
+
+                        <div
+                            id="resqMap"
+                            class="google-map"
+                        ></div>
+
+                    </section>
+
+                </div>
+
+
+                <section class="blood-stock-note">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            BLOOD STOCK
+                        </span>
+
+
+                        <h2>
+                            Location is not the same
+                            as blood availability.
+                        </h2>
+
+
+                        <p>
+
+                            ResQ uses OpenStreetMap data
+                            to locate medical facilities.
+                            Actual blood-unit availability
+                            should always be verified with
+                            the blood bank or official
+                            blood-stock service.
+
+                        </p>
+
+                    </div>
+
+
+                    <a
+                        class="btn btn-outline"
+                        href="https://eraktkosh.mohfw.gov.in/BLDAHIMS/bloodbank/stockAvailability.cnt"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+
+                        Check blood stock
+
+                        <i data-lucide="external-link"></i>
+
+                    </a>
+
+                </section>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script src="js/app.js"></script>
+
+    <script src="js/hospitals.js"></script>
+
+</body>
+
+</html>

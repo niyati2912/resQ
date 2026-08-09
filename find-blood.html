@@ -1,361 +1,274 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Find Blood | ResQ</title>
-
-    <link
-        rel="stylesheet"
-        href="css/style.css"
-    >
-
-    <!-- Google Font -->
-
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
-
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    >
-
-</head>
-
-
-<body>
-
-
-<!-- NAVBAR -->
-
-<header class="navbar">
-
-    <a
-        href="index.html"
-        class="logo"
-    >
-
-        <span class="logo-icon">
-            🩸
-        </span>
-
-        Res<span>Q</span>
-
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title>
+   ResQ | Find Blood
+  </title>
+  <link href="css/style.css" rel="stylesheet"/>
+  <script src="https://unpkg.com/lucide@latest">
+  </script>
+ </head>
+ <body>
+  <div class="app">
+   <aside class="sidebar" id="sidebar">
+    <a class="brand" href="index.html">
+     <img class="brand-logo" src="assets/resq-logo.png"/>
+     <span class="brand-name">
+      Res
+      <span>
+       Q
+      </span>
+     </span>
     </a>
-
-
-    <div class="nav-actions">
-
-        <a
-            href="index.html"
-            class="secondary-btn"
-        >
-
-            ← Back to Home
-
-        </a>
-
+    <nav class="nav">
+     <div class="nav-label">
+      Main
+     </div>
+     <a class="nav-link" data-page="index.html" href="index.html">
+      <i data-lucide="house">
+      </i>
+      <span class="nav-text" data-t="home">
+       Home
+      </span>
+     </a>
+     <a class="nav-link" data-page="find-blood.html" href="find-blood.html">
+      <i data-lucide="search">
+      </i>
+      <span class="nav-text" data-t="find">
+       Find Blood
+      </span>
+     </a>
+     <a class="nav-link" data-page="hospitals.html" href="hospitals.html">
+      <i data-lucide="map">
+      </i>
+      <span class="nav-text" data-t="hospitals">
+       Hospitals
+      </span>
+     </a>
+     <a class="nav-link" data-page="dashboard.html" href="dashboard.html">
+      <i data-lucide="layout-dashboard">
+      </i>
+      <span class="nav-text" data-t="dashboard">
+       Dashboard
+      </span>
+     </a>
+     <div class="nav-label">
+      Tools
+     </div>
+     <a class="nav-link" data-page="eligibility.html" href="eligibility.html">
+      <i data-lucide="clipboard-check">
+      </i>
+      <span class="nav-text" data-t="eligibility">
+       Eligibility
+      </span>
+     </a>
+     <a class="nav-link" data-page="compatibility.html" href="compatibility.html">
+      <i data-lucide="git-compare">
+      </i>
+      <span class="nav-text" data-t="compatibility">
+       Compatibility
+      </span>
+     </a>
+     <a class="nav-link" data-page="resources.html" href="resources.html">
+      <i data-lucide="newspaper">
+      </i>
+      <span class="nav-text" data-t="resources">
+       Resources
+      </span>
+     </a>
+     <div class="nav-label">
+      Account
+     </div>
+     <a class="nav-link" data-page="login.html" href="login.html">
+      <i data-lucide="log-in">
+      </i>
+      <span class="nav-text" data-t="login">
+       Login
+      </span>
+     </a>
+     <a class="nav-link" data-page="signup.html" href="signup.html">
+      <i data-lucide="user-plus">
+      </i>
+      <span class="nav-text" data-t="signup">
+       Sign Up
+      </span>
+     </a>
+    </nav>
+    <div class="sidebar-bottom">
+     <a class="emergency-link" href="emergency.html">
+      <i data-lucide="siren">
+      </i>
+      <span class="emergency-text" data-t="emergency">
+       I Need Blood Now
+      </span>
+     </a>
     </div>
-
-</header>
-
-
-
-<main class="find-blood-page">
-
-
-<!-- PAGE HEADING -->
-
-<section class="find-blood-intro">
-
-    <span class="find-blood-badge">
-
-        🔎 FIND A BLOOD DONOR
-
-    </span>
-
-
-    <h1>
-
-        Find Blood
-
-        <span>Near You</span>
-
-    </h1>
-
-
-    <p>
-
-        Search available blood donors
-        by blood group and city.
-
-    </p>
-
-</section>
-
-
-
-<!-- SEARCH BOX -->
-
-<section class="blood-search-container">
-
-
-<form id="bloodSearchForm">
-
-
-<div class="search-group">
-
-<label for="searchBloodGroup">
-
-Blood Group
-
-</label>
-
-
-<select id="searchBloodGroup">
-
-<option value="">
-
-Select blood group
-
-</option>
-
-
-<option value="A+">
-
-A+
-
-</option>
-
-
-<option value="A-">
-
-A-
-
-</option>
-
-
-<option value="B+">
-
-B+
-
-</option>
-
-
-<option value="B-">
-
-B-
-
-</option>
-
-
-<option value="AB+">
-
-AB+
-
-</option>
-
-
-<option value="AB-">
-
-AB-
-
-</option>
-
-
-<option value="O+">
-
-O+
-
-</option>
-
-
-<option value="O-">
-
-O-
-
-</option>
-
-</select>
-
-</div>
-
-
-
-<div class="search-group">
-
-<label for="searchCity">
-
-City
-
-</label>
-
-
-<input
-    type="text"
-    id="searchCity"
-    placeholder="Enter city name"
->
-
-</div>
-
-
-
-<button
-    type="submit"
-    class="search-blood-btn"
->
-
-🔎 Search Donors
-
-</button>
-
-
-</form>
-
-</section>
-
-
-
-<!-- SEARCH MESSAGE -->
-
-<p id="searchMessage"></p>
-
-
-
-<!-- DONOR RESULTS -->
-
-<section
-    id="donorResults"
-    class="donor-results"
->
-
-</section>
-
-<!-- CONTACT DONOR POPUP -->
-
-<div
-    id="contactModal"
-    class="contact-modal"
->
-
-    <div class="contact-modal-box">
-
-        <!-- Close Button -->
-
-        <button
-            id="closeModal"
-            class="close-modal"
-        >
-            
-        </button>
-
-
-        <div class="modal-icon">
-            🩸
-        </div>
-
-
-        <h2>
-            Contact Donor
-        </h2>
-
-
+   </aside>
+   <main class="main">
+    <header class="topbar">
+     <div class="top-left">
+      <button class="menu-btn" id="menuBtn">
+       <i data-lucide="menu">
+       </i>
+      </button>
+      <button aria-label="Collapse navigation" class="menu-btn nav-logo-btn" id="collapseBtn">
+       <img class="nav-toggle-logo" src="assets/resq-logo.png"/>
+      </button>
+      <span class="top-title">
+       Find a blood donor
+      </span>
+     </div>
+     <div class="top-right">
+      <select class="lang" id="language">
+       <option value="en">
+        EN
+       </option>
+       <option value="hi">
+        हिन्दी
+       </option>
+       <option value="pa">
+        ਪੰਜਾਬੀ
+       </option>
+      </select>
+      <button class="theme-btn" id="themeBtn">
+       <i data-lucide="moon">
+       </i>
+      </button>
+      <a class="account-btn" href="login.html">
+       <i data-lucide="user-round">
+       </i>
+       <span>
+        Account
+       </span>
+      </a>
+     </div>
+    </header>
+    <section class="page">
+     <div class="page-head">
+      <span class="eyebrow">
+       FIND A DONOR
+      </span>
+      <h1>
+       Find blood
+       <span>
+        near you.
+       </span>
+      </h1>
+      <p>
+       Search available donors by blood group and city. Emergency search will later connect this flow to the location map.
+      </p>
+     </div>
+     <div class="panel search-panel">
+      <form class="search-grid" id="bloodSearchForm">
+       <div class="field">
+        <label for="searchBloodGroup">
+         Blood Group
+        </label>
+        <select id="searchBloodGroup">
+         <option value="">
+          Select blood group
+         </option>
+         <option>
+          A+
+         </option>
+         <option>
+          A-
+         </option>
+         <option>
+          B+
+         </option>
+         <option>
+          B-
+         </option>
+         <option>
+          AB+
+         </option>
+         <option>
+          AB-
+         </option>
+         <option>
+          O+
+         </option>
+         <option>
+          O-
+         </option>
+        </select>
+       </div>
+       <div class="field">
+        <label for="searchCity">
+         City
+        </label>
+        <input id="searchCity" placeholder="Example: Ambala"/>
+       </div>
+       <button class="btn btn-primary" type="submit">
+        Search Donors
+       </button>
+      </form>
+     </div>
+     <p id="searchMessage" style="max-width:1000px;margin:16px auto;text-align:center;font-size:11px;font-weight:700">
+     </p>
+     <section class="donor-results" id="donorResults">
+     </section>
+     <div class="modal" id="contactModal">
+      <div class="modal-box">
+       <button class="modal-close" id="closeModal">
+        <i data-lucide="x">
+        </i>
+       </button>
+       <div class="blood-mark">
+        <i data-lucide="phone">
+        </i>
+       </div>
+       <h2>
+        Contact donor
+       </h2>
+       <p>
+        Use the details below to contact the available donor.
+       </p>
+       <div class="detail-list">
         <p>
-            You can contact the available donor
-            using the details below.
+         <strong>
+          Donor:
+         </strong>
+         <span id="modalDonorName">
+         </span>
         </p>
-
-
-        <div class="contact-details">
-
-            <p>
-
-                <strong>
-                    Donor:
-                </strong>
-
-                <span id="modalDonorName">
-                </span>
-
-            </p>
-
-
-            <p>
-
-                <strong>
-                    Blood Group:
-                </strong>
-
-                <span id="modalBloodGroup">
-                </span>
-
-            </p>
-
-
-            <p>
-
-                <strong>
-                    City:
-                </strong>
-
-                <span id="modalCity">
-                </span>
-
-            </p>
-
-
-            <p>
-
-                <strong>
-                    Phone:
-                </strong>
-
-                <span id="modalPhone">
-                </span>
-
-            </p>
-
-        </div>
-
-
-        <a
-            id="callDonor"
-            class="call-donor-btn"
-            href="#"
-        >
-
-            📞 Call Donor
-
-        </a>
-
-    </div>
-
-</div>
-
-
-</main>
-
-
-
-<script src="js/find-blood.js"></script>
-
-
-</body>
-
+        <p>
+         <strong>
+          Blood group:
+         </strong>
+         <span id="modalBloodGroup">
+         </span>
+        </p>
+        <p>
+         <strong>
+          City:
+         </strong>
+         <span id="modalCity">
+         </span>
+        </p>
+        <p>
+         <strong>
+          Phone:
+         </strong>
+         <span id="modalPhone">
+         </span>
+        </p>
+       </div>
+       <a class="btn btn-primary" id="callDonor" style="width:100%;margin-top:15px">
+        Call Donor
+       </a>
+      </div>
+     </div>
+    </section>
+   </main>
+  </div>
+  <script src="js/app.js">
+  </script>
+  <script src="js/find-blood.js">
+  </script>
+ </body>
 </html>
+

@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width,initial-scale=1" name="viewport"/>
   <title>
-   ResQ | Become a Donor
+   ResQ | Resources
   </title>
   <link href="css/style.css" rel="stylesheet"/>
   <script src="https://unpkg.com/lucide@latest">
@@ -117,7 +117,7 @@
        <img class="nav-toggle-logo" src="assets/resq-logo.png"/>
       </button>
       <span class="top-title">
-       Become a donor
+       Blood resources
       </span>
      </div>
      <div class="top-right">
@@ -146,123 +146,86 @@
      </div>
     </header>
     <section class="page">
-     <div class="form-wrap">
-      <div class="page-head">
-       <span class="eyebrow">
-        DONOR REGISTRATION
+     <div class="page-head">
+      <span class="eyebrow">
+       BLOOD RESOURCES
+      </span>
+      <h1>
+       Know more.
+       <span>
+        Donate better.
        </span>
-       <h1>
-        Become part of
+      </h1>
+      <p>
+       Trusted blood donation information, eligibility guidance and current blood-donation stories will live here.
+      </p>
+     </div>
+     <div class="resource-grid">
+      <article class="resource-card">
+       <div class="resource-image">
+        <i data-lucide="heart-pulse">
+        </i>
+       </div>
+       <div class="resource-body">
         <span>
-         ResQ.
+         DONATION
         </span>
-       </h1>
-       <p>
-        Register your donor details so people looking for compatible blood can find available support in your city.
-       </p>
-      </div>
-      <div class="panel">
-       <form class="form-grid" id="donorForm">
-        <div class="field">
-         <label for="donorName">
-          Full Name
-         </label>
-         <input id="donorName" placeholder="Enter your full name" type="text"/>
-         <small class="error" id="nameError">
-         </small>
-        </div>
-        <div class="field">
-         <label for="bloodGroup">
-          Blood Group
-         </label>
-         <select id="bloodGroup">
-          <option value="">
-           Select blood group
-          </option>
-          <option>
-           A+
-          </option>
-          <option>
-           A-
-          </option>
-          <option>
-           B+
-          </option>
-          <option>
-           B-
-          </option>
-          <option>
-           AB+
-          </option>
-          <option>
-           AB-
-          </option>
-          <option>
-           O+
-          </option>
-          <option>
-           O-
-          </option>
-         </select>
-         <small class="error" id="bloodError">
-         </small>
-        </div>
-        <div class="field">
-         <label for="phone">
-          Phone Number
-         </label>
-         <input id="phone" placeholder="10-digit phone number" type="tel"/>
-         <small class="error" id="phoneError">
-         </small>
-        </div>
-        <div class="field">
-         <label for="city">
-          City
-         </label>
-         <input id="city" placeholder="Your city" type="text"/>
-         <small class="error" id="cityError">
-         </small>
-        </div>
-        <div class="field">
-         <label for="age">
-          Age
-         </label>
-         <input id="age" max="65" min="18" placeholder="Age" type="number"/>
-         <small class="error" id="ageError">
-         </small>
-        </div>
-        <div class="field">
-         <label for="availability">
-          Availability
-         </label>
-         <select id="availability">
-          <option value="">
-           Select availability
-          </option>
-          <option>
-           Available
-          </option>
-          <option>
-           Not Available
-          </option>
-         </select>
-         <small class="error" id="availabilityError">
-         </small>
-        </div>
-        <button class="btn btn-primary field full" type="submit">
-         Register as Donor
-        </button>
-        <div class="success field full" id="successMessage">
-        </div>
-       </form>
-      </div>
+        <h3>
+         Why blood donation matters
+        </h3>
+        <p>
+         Learn how donated blood supports patients and why maintaining a reliable supply matters.
+        </p>
+        <a href="https://www.blood.co.uk/why-give-blood/" target="_blank">
+         Read trusted guidance
+        </a>
+       </div>
+      </article>
+      <article class="resource-card">
+       <div class="resource-image">
+        <i data-lucide="clipboard-check">
+        </i>
+       </div>
+       <div class="resource-body">
+        <span>
+         ELIGIBILITY
+        </span>
+        <h3>
+         Before you donate
+        </h3>
+        <p>
+         Review general eligibility information before using ResQ's project screening tools.
+        </p>
+        <a href="https://www.redcrossblood.org/local-homepage.html" target="_blank">
+         Read donor information
+        </a>
+       </div>
+      </article>
+      <article class="resource-card">
+       <div class="resource-image">
+        <i data-lucide="newspaper">
+        </i>
+       </div>
+       <div class="resource-body">
+        <span>
+         NEWS
+        </span>
+        <h3>
+         Blood donation updates
+        </h3>
+        <p>
+         Phase 2 will add a clean article feed focused on blood donation, shortages and awareness.
+        </p>
+        <a href="https://www.blood.co.uk/news-and-campaigns/" target="_blank">
+         Explore current stories
+        </a>
+       </div>
+      </article>
      </div>
     </section>
    </main>
   </div>
   <script src="js/app.js">
-  </script>
-  <script src="js/donor.js">
   </script>
  </body>
 </html>

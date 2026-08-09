@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width,initial-scale=1" name="viewport"/>
   <title>
-   ResQ | Become a Donor
+   ResQ | Login
   </title>
   <link href="css/style.css" rel="stylesheet"/>
   <script src="https://unpkg.com/lucide@latest">
@@ -117,7 +117,7 @@
        <img class="nav-toggle-logo" src="assets/resq-logo.png"/>
       </button>
       <span class="top-title">
-       Become a donor
+       Account access
       </span>
      </div>
      <div class="top-right">
@@ -136,125 +136,54 @@
        <i data-lucide="moon">
        </i>
       </button>
-      <a class="account-btn" href="login.html">
-       <i data-lucide="user-round">
-       </i>
-       <span>
-        Account
-       </span>
-      </a>
      </div>
     </header>
-    <section class="page">
-     <div class="form-wrap">
-      <div class="page-head">
-       <span class="eyebrow">
-        DONOR REGISTRATION
-       </span>
+    <section class="auth-page">
+     <div class="auth">
+      <div class="auth-side">
+       <img src="assets/resq-logo.png"/>
        <h1>
-        Become part of
-        <span>
-         ResQ.
-        </span>
+        Welcome back.
        </h1>
        <p>
-        Register your donor details so people looking for compatible blood can find available support in your city.
+        Your account is optional for emergency access. You can always go straight to blood search without logging in.
        </p>
+       <a class="btn btn-primary" href="emergency.html" style="margin-top:22px">
+        I Need Blood Now
+       </a>
       </div>
-      <div class="panel">
-       <form class="form-grid" id="donorForm">
+      <div class="auth-form">
+       <h2>
+        Login
+       </h2>
+       <p>
+        Use your local ResQ demo account.
+       </p>
+       <form data-mode="login" id="authForm">
         <div class="field">
-         <label for="donorName">
-          Full Name
+         <label for="email">
+          Email
          </label>
-         <input id="donorName" placeholder="Enter your full name" type="text"/>
-         <small class="error" id="nameError">
-         </small>
+         <input id="email" placeholder="you@example.com" required="" type="email"/>
         </div>
         <div class="field">
-         <label for="bloodGroup">
-          Blood Group
+         <label for="password">
+          Password
          </label>
-         <select id="bloodGroup">
-          <option value="">
-           Select blood group
-          </option>
-          <option>
-           A+
-          </option>
-          <option>
-           A-
-          </option>
-          <option>
-           B+
-          </option>
-          <option>
-           B-
-          </option>
-          <option>
-           AB+
-          </option>
-          <option>
-           AB-
-          </option>
-          <option>
-           O+
-          </option>
-          <option>
-           O-
-          </option>
-         </select>
-         <small class="error" id="bloodError">
-         </small>
+         <input id="password" placeholder="Your password" required="" type="password"/>
         </div>
-        <div class="field">
-         <label for="phone">
-          Phone Number
-         </label>
-         <input id="phone" placeholder="10-digit phone number" type="tel"/>
-         <small class="error" id="phoneError">
-         </small>
-        </div>
-        <div class="field">
-         <label for="city">
-          City
-         </label>
-         <input id="city" placeholder="Your city" type="text"/>
-         <small class="error" id="cityError">
-         </small>
-        </div>
-        <div class="field">
-         <label for="age">
-          Age
-         </label>
-         <input id="age" max="65" min="18" placeholder="Age" type="number"/>
-         <small class="error" id="ageError">
-         </small>
-        </div>
-        <div class="field">
-         <label for="availability">
-          Availability
-         </label>
-         <select id="availability">
-          <option value="">
-           Select availability
-          </option>
-          <option>
-           Available
-          </option>
-          <option>
-           Not Available
-          </option>
-         </select>
-         <small class="error" id="availabilityError">
-         </small>
-        </div>
-        <button class="btn btn-primary field full" type="submit">
-         Register as Donor
+        <button class="btn btn-primary" type="submit">
+         Login
         </button>
-        <div class="success field full" id="successMessage">
-        </div>
        </form>
+       <p class="success" id="authMessage" style="margin-top:15px">
+       </p>
+       <div class="auth-switch">
+        New to ResQ?
+        <a href="signup.html">
+         Create an account
+        </a>
+       </div>
       </div>
      </div>
     </section>
@@ -262,7 +191,7 @@
   </div>
   <script src="js/app.js">
   </script>
-  <script src="js/donor.js">
+  <script src="js/auth.js">
   </script>
  </body>
 </html>
