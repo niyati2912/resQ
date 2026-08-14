@@ -59,8 +59,6 @@ function loadDashboard() {
         ) || [];
 
 
-    // Calculate data
-
     const available =
 
         donors.filter(
@@ -85,8 +83,6 @@ function loadDashboard() {
         );
 
 
-    // Update statistics
-
     totalDonors.textContent =
 
         donors.length;
@@ -107,15 +103,11 @@ function loadDashboard() {
         critical.length;
 
 
-    // Clear old data
-
     recentDonors.innerHTML = "";
 
 
     recentRequests.innerHTML = "";
 
-
-    // Show recent donors
 
     if (
         donors.length === 0
@@ -182,8 +174,6 @@ function loadDashboard() {
 
     }
 
-
-    // Show recent requests
 
     if (
         requests.length === 0
@@ -253,12 +243,8 @@ function loadDashboard() {
 }
 
 
-// Load dashboard
-
 loadDashboard();
 
-
-// Refresh button
 
 document
     .getElementById(

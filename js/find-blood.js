@@ -1,12 +1,3 @@
-/* ========================================
-   RESQ - FIND BLOOD SYSTEM
-======================================== */
-
-
-/* ========================================
-   GET HTML ELEMENTS
-======================================== */
-
 const bloodSearchForm =
 document.getElementById(
     "bloodSearchForm"
@@ -36,10 +27,6 @@ document.getElementById(
     "searchMessage"
 );
 
-
-/* ========================================
-   CONTACT MODAL ELEMENTS
-======================================== */
 
 const contactModal =
 document.getElementById(
@@ -82,10 +69,6 @@ document.getElementById(
     "callDonor"
 );
 
-
-/* ========================================
-   DEFAULT DONOR DATA
-======================================== */
 
 const defaultDonors = [
 
@@ -132,10 +115,6 @@ const defaultDonors = [
 ];
 
 
-/* ========================================
-   GET REGISTERED DONORS
-======================================== */
-
 const registeredDonors =
 
 JSON.parse(
@@ -147,8 +126,6 @@ JSON.parse(
 ) || [];
 
 
-/* Combine default and registered donors */
-
 const allDonors = [
 
     ...defaultDonors,
@@ -157,10 +134,6 @@ const allDonors = [
 
 ];
 
-
-/* ========================================
-   SEARCH FORM
-======================================== */
 
 bloodSearchForm.addEventListener(
 
@@ -182,8 +155,6 @@ bloodSearchForm.addEventListener(
         .trim()
         .toLowerCase();
 
-
-        /* Validation */
 
         if (
 
@@ -212,8 +183,6 @@ bloodSearchForm.addEventListener(
 
         }
 
-
-        /* Filter donors */
 
         const matchingDonors =
 
@@ -250,8 +219,6 @@ bloodSearchForm.addEventListener(
         );
 
 
-        /* Display results */
-
         displayDonors(
             matchingDonors
         );
@@ -261,10 +228,6 @@ bloodSearchForm.addEventListener(
 );
 
 
-/* ========================================
-   DISPLAY DONORS
-======================================== */
-
 function displayDonors(
     donors
 ) {
@@ -272,8 +235,6 @@ function displayDonors(
 
     donorResults.innerHTML = "";
 
-
-    /* No donor found */
 
     if (
 
@@ -296,8 +257,6 @@ function displayDonors(
     }
 
 
-    /* Donors found */
-
     searchMessage.textContent =
 
     `✅ ${donors.length} donor(s) found!`;
@@ -307,8 +266,6 @@ function displayDonors(
 
     "search-success";
 
-
-    /* Create donor cards */
 
     donors.forEach(
 
@@ -415,10 +372,6 @@ function displayDonors(
 }
 
 
-/* ========================================
-   OPEN CONTACT POPUP
-======================================== */
-
 document.addEventListener(
 
     "click",
@@ -480,10 +433,6 @@ document.addEventListener(
 );
 
 
-/* ========================================
-   CLOSE POPUP BUTTON
-======================================== */
-
 if (
 
     closeModal
@@ -508,10 +457,6 @@ if (
 
 }
 
-
-/* ========================================
-   CLOSE WHEN CLICKING OUTSIDE
-======================================== */
 
 if (
 

@@ -14,41 +14,28 @@ const emergencyMessage =
 let selectedBloodGroup = "";
 
 
-// ========================================
-// BLOOD GROUP SELECTION
-// ========================================
-
 bloodOptions.forEach(button => {
 
     button.addEventListener("click", function () {
 
-        // Remove selection from all buttons
         bloodOptions.forEach(option => {
             option.classList.remove("selected");
         });
 
-        // Select clicked button
         this.classList.add("selected");
 
-        // Store blood group
         selectedBloodGroup =
             this.dataset.blood;
 
-        // Update summary
         selectedBlood.textContent =
             selectedBloodGroup;
 
-        // Clear error
         emergencyError.textContent = "";
 
     });
 
 });
 
-
-// ========================================
-// CONTINUE BUTTON
-// ========================================
 
 const nextButton =
     document.querySelector("[data-next]");
@@ -70,17 +57,14 @@ if (nextButton) {
         emergencyError.textContent = "";
 
 
-        // Hide first step
         emergencySteps[0]
             .classList.remove("active");
 
 
-        // Show second step
         emergencySteps[1]
             .classList.add("active");
 
 
-        // Update summary
         selectedBlood.textContent =
             selectedBloodGroup;
 
@@ -88,10 +72,6 @@ if (nextButton) {
 
 }
 
-
-// ========================================
-// BACK BUTTON
-// ========================================
 
 const backButton =
     document.querySelector("[data-back]");
@@ -120,10 +100,6 @@ if (backButton) {
 }
 
 
-// ========================================
-// SUBMIT EMERGENCY REQUEST
-// ========================================
-
 emergencyForm.addEventListener(
     "submit",
     function (event) {
@@ -137,10 +113,6 @@ emergencyForm.addEventListener(
         emergencyMessage.textContent =
             "";
 
-
-        // --------------------------------
-        // Check blood group
-        // --------------------------------
 
         if (!selectedBloodGroup) {
 
@@ -158,10 +130,6 @@ emergencyForm.addEventListener(
 
         }
 
-
-        // --------------------------------
-        // Get form values
-        // --------------------------------
 
         const patientName =
             document.getElementById(
@@ -198,10 +166,6 @@ emergencyForm.addEventListener(
                 "urgency"
             ).value;
 
-
-        // --------------------------------
-        // Basic validation
-        // --------------------------------
 
         if (!patientName) {
 
@@ -270,10 +234,6 @@ emergencyForm.addEventListener(
         }
 
 
-        // --------------------------------
-        // Create emergency request
-        // --------------------------------
-
         const request = {
 
             id: Date.now(),
@@ -333,20 +293,12 @@ emergencyForm.addEventListener(
         );
 
 
-        // --------------------------------
-        // Success
-        // --------------------------------
-
         emergencyMessage.innerHTML =
 
             `Emergency request submitted successfully for 
             <strong>${selectedBloodGroup}</strong> blood. 
             Finding support near ${city}...`;
 
-
-        // --------------------------------
-        // Optional redirect after success
-        // --------------------------------
 
         setTimeout(() => {
 

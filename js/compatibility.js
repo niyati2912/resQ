@@ -1,8 +1,3 @@
-/* ========================================
-   RESQ BLOOD COMPATIBILITY CHECKER
-======================================== */
-
-
 const compatibilityForm =
 
 document.getElementById(
@@ -30,8 +25,6 @@ document.getElementById(
     "compatibilityResult"
 );
 
-
-/* Donor compatibility data */
 
 const bloodCompatibility = {
 
@@ -88,8 +81,6 @@ const bloodCompatibility = {
 
 };
 
-
-/* Form event */
 
 compatibilityForm.addEventListener(
 

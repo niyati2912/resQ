@@ -53,8 +53,6 @@ donorForm.addEventListener(
         let isValid = true;
 
 
-        // Clear old errors
-
         document
             .querySelectorAll(
                 ".error-message"
@@ -68,8 +66,6 @@ donorForm.addEventListener(
             );
 
 
-        // Name validation
-
         if (name.length < 3) {
 
             document
@@ -82,8 +78,6 @@ donorForm.addEventListener(
         }
 
 
-        // Blood group validation
-
         if (bloodGroup === "") {
 
             document
@@ -95,8 +89,6 @@ donorForm.addEventListener(
 
         }
 
-
-        // Phone validation
 
         if (
             !/^[0-9]{10}$/.test(
@@ -114,8 +106,6 @@ donorForm.addEventListener(
         }
 
 
-        // City validation
-
         if (city.length < 2) {
 
             document
@@ -127,8 +117,6 @@ donorForm.addEventListener(
 
         }
 
-
-        // Age validation
 
         if (
             age < 18 ||
@@ -144,8 +132,6 @@ donorForm.addEventListener(
 
         }
 
-
-        // Availability validation
 
         if (availability === "") {
 
@@ -168,8 +154,6 @@ donorForm.addEventListener(
         }
 
 
-        // Create donor object
-
         const donor = {
 
             id: Date.now(),
@@ -189,8 +173,6 @@ donorForm.addEventListener(
         };
 
 
-        // Get old donors
-
         const donors = JSON.parse(
             localStorage.getItem(
                 "resqDonors"
@@ -198,14 +180,10 @@ donorForm.addEventListener(
         ) || [];
 
 
-        // Add new donor
-
         donors.push(
             donor
         );
 
-
-        // Save in LocalStorage
 
         localStorage.setItem(
             "resqDonors",
@@ -214,8 +192,6 @@ donorForm.addEventListener(
             )
         );
 
-
-        // Success message
 
         const successMessage =
             document.getElementById(
@@ -226,8 +202,6 @@ donorForm.addEventListener(
         successMessage.textContent =
             `Thank you ${name}! You are now registered as a ResQ donor. 🩸`;
 
-
-        // Reset form
 
         donorForm.reset();
 

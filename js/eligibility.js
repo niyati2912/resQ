@@ -1,7 +1,3 @@
-/* ========================================
-   RESQ ELIGIBILITY CHECKER
-======================================== */
-
 const eligibilityForm =
 document.getElementById("eligibilityForm");
 
@@ -21,8 +17,6 @@ const eligibilityResult =
 document.getElementById("eligibilityResult");
 
 
-/* Check if all elements exist */
-
 if (
     eligibilityForm &&
     ageInput &&
@@ -32,20 +26,14 @@ if (
     eligibilityResult
 ) {
 
-    /* Form submit event */
-
     eligibilityForm.addEventListener(
 
         "submit",
 
         function (event) {
 
-            /* Stop page refresh */
-
             event.preventDefault();
 
-
-            /* Get user values */
 
             const age =
             Number(ageInput.value);
@@ -59,8 +47,6 @@ if (
             const health =
             healthStatus.value;
 
-
-            /* Eligibility conditions */
 
             const validAge =
             age >= 18 &&
@@ -81,8 +67,6 @@ if (
             const healthy =
             health === "healthy";
 
-
-            /* Final result */
 
             if (
 

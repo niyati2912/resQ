@@ -1,269 +1,269 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width,initial-scale=1" name="viewport"/>
-  <title>
-   ResQ | Become a Donor
-  </title>
-  <link href="css/style.css" rel="stylesheet"/>
-  <script src="https://unpkg.com/lucide@latest">
-  </script>
- </head>
- <body>
-  <div class="app">
-   <aside class="sidebar" id="sidebar">
-    <a class="brand" href="index.html">
-     <img class="brand-logo" src="assets/resq-logo.png"/>
-     <span class="brand-name">
-      Res
-      <span>
-       Q
-      </span>
-     </span>
-    </a>
-    <nav class="nav">
-     <div class="nav-label">
-      Main
-     </div>
-     <a class="nav-link" data-page="index.html" href="index.html">
-      <i data-lucide="house">
-      </i>
-      <span class="nav-text" data-t="home">
-       Home
-      </span>
-     </a>
-     <a class="nav-link" data-page="find-blood.html" href="find-blood.html">
-      <i data-lucide="search">
-      </i>
-      <span class="nav-text" data-t="find">
-       Find Blood
-      </span>
-     </a>
-     <a class="nav-link" data-page="hospitals.html" href="hospitals.html">
-      <i data-lucide="map">
-      </i>
-      <span class="nav-text" data-t="hospitals">
-       Hospitals
-      </span>
-     </a>
-     <a class="nav-link" data-page="dashboard.html" href="dashboard.html">
-      <i data-lucide="layout-dashboard">
-      </i>
-      <span class="nav-text" data-t="dashboard">
-       Dashboard
-      </span>
-     </a>
-     <div class="nav-label">
-      Tools
-     </div>
-     <a class="nav-link" data-page="eligibility.html" href="eligibility.html">
-      <i data-lucide="clipboard-check">
-      </i>
-      <span class="nav-text" data-t="eligibility">
-       Eligibility
-      </span>
-     </a>
-     <a class="nav-link" data-page="compatibility.html" href="compatibility.html">
-      <i data-lucide="git-compare">
-      </i>
-      <span class="nav-text" data-t="compatibility">
-       Compatibility
-      </span>
-     </a>
-     <a class="nav-link" data-page="resources.html" href="resources.html">
-      <i data-lucide="newspaper">
-      </i>
-      <span class="nav-text" data-t="resources">
-       Resources
-      </span>
-     </a>
-     <div class="nav-label">
-      Account
-     </div>
-     <a class="nav-link" data-page="login.html" href="login.html">
-      <i data-lucide="log-in">
-      </i>
-      <span class="nav-text" data-t="login">
-       Login
-      </span>
-     </a>
-     <a class="nav-link" data-page="signup.html" href="signup.html">
-      <i data-lucide="user-plus">
-      </i>
-      <span class="nav-text" data-t="signup">
-       Sign Up
-      </span>
-     </a>
-    </nav>
-    <div class="sidebar-bottom">
-     <a class="emergency-link" href="emergency.html">
-      <i data-lucide="siren">
-      </i>
-      <span class="emergency-text" data-t="emergency">
-       I Need Blood Now
-      </span>
-     </a>
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>
+ResQ | Become a Donor
+</title>
+<link href="css/style.css" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@latest">
+</script>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+<a class="brand" href="index.html">
+    <img class="brand-logo" src="assets/resq-logo.png"/>
+    <span class="brand-name">
+    Res
+    <span>
+    Q
+    </span>
+    </span>
+</a>
+<nav class="nav">
+    <div class="nav-label">
+    Main
     </div>
-   </aside>
-   <main class="main">
-    <header class="topbar">
-     <div class="top-left">
-      <button class="menu-btn" id="menuBtn">
-       <i data-lucide="menu">
-       </i>
-      </button>
-      <button aria-label="Collapse navigation" class="menu-btn nav-logo-btn" id="collapseBtn">
-       <img class="nav-toggle-logo" src="assets/resq-logo.png"/>
-      </button>
-      <span class="top-title">
-       Become a donor
-      </span>
-     </div>
-     <div class="top-right">
-      <select class="lang" id="language">
-       <option value="en">
-        EN
-       </option>
-       <option value="hi">
-        हिन्दी
-       </option>
-       <option value="pa">
-        ਪੰਜਾਬੀ
-       </option>
-      </select>
-      <button class="theme-btn" id="themeBtn">
-       <i data-lucide="moon">
-       </i>
-      </button>
-      <a class="account-btn" href="login.html">
-       <i data-lucide="user-round">
-       </i>
-       <span>
-        Account
-       </span>
-      </a>
-     </div>
-    </header>
-    <section class="page">
-     <div class="form-wrap">
-      <div class="page-head">
-       <span class="eyebrow">
-        DONOR REGISTRATION
-       </span>
-       <h1>
-        Become part of
-        <span>
-         ResQ.
-        </span>
-       </h1>
-       <p>
-        Register your donor details so people looking for compatible blood can find available support in your city.
-       </p>
-      </div>
-      <div class="panel">
-       <form class="form-grid" id="donorForm">
-        <div class="field">
-         <label for="donorName">
-          Full Name
-         </label>
-         <input id="donorName" placeholder="Enter your full name" type="text"/>
-         <small class="error" id="nameError">
-         </small>
-        </div>
-        <div class="field">
-         <label for="bloodGroup">
-          Blood Group
-         </label>
-         <select id="bloodGroup">
-          <option value="">
-           Select blood group
-          </option>
-          <option>
-           A+
-          </option>
-          <option>
-           A-
-          </option>
-          <option>
-           B+
-          </option>
-          <option>
-           B-
-          </option>
-          <option>
-           AB+
-          </option>
-          <option>
-           AB-
-          </option>
-          <option>
-           O+
-          </option>
-          <option>
-           O-
-          </option>
-         </select>
-         <small class="error" id="bloodError">
-         </small>
-        </div>
-        <div class="field">
-         <label for="phone">
-          Phone Number
-         </label>
-         <input id="phone" placeholder="10-digit phone number" type="tel"/>
-         <small class="error" id="phoneError">
-         </small>
-        </div>
-        <div class="field">
-         <label for="city">
-          City
-         </label>
-         <input id="city" placeholder="Your city" type="text"/>
-         <small class="error" id="cityError">
-         </small>
-        </div>
-        <div class="field">
-         <label for="age">
-          Age
-         </label>
-         <input id="age" max="65" min="18" placeholder="Age" type="number"/>
-         <small class="error" id="ageError">
-         </small>
-        </div>
-        <div class="field">
-         <label for="availability">
-          Availability
-         </label>
-         <select id="availability">
-          <option value="">
-           Select availability
-          </option>
-          <option>
-           Available
-          </option>
-          <option>
-           Not Available
-          </option>
-         </select>
-         <small class="error" id="availabilityError">
-         </small>
-        </div>
-        <button class="btn btn-primary field full" type="submit">
-         Register as Donor
-        </button>
-        <div class="success field full" id="successMessage">
-        </div>
-       </form>
-      </div>
-     </div>
-    </section>
-   </main>
-  </div>
-  <script src="js/app.js">
-  </script>
-  <script src="js/donor.js">
-  </script>
- </body>
+    <a class="nav-link" data-page="index.html" href="index.html">
+    <i data-lucide="house">
+    </i>
+    <span class="nav-text" data-t="home">
+    Home
+    </span>
+    </a>
+    <a class="nav-link" data-page="find-blood.html" href="find-blood.html">
+    <i data-lucide="search">
+    </i>
+    <span class="nav-text" data-t="find">
+    Find Blood
+    </span>
+    </a>
+    <a class="nav-link" data-page="hospitals.html" href="hospitals.html">
+    <i data-lucide="map">
+    </i>
+    <span class="nav-text" data-t="hospitals">
+    Hospitals
+    </span>
+    </a>
+    <a class="nav-link" data-page="dashboard.html" href="dashboard.html">
+    <i data-lucide="layout-dashboard">
+    </i>
+    <span class="nav-text" data-t="dashboard">
+    Dashboard
+    </span>
+    </a>
+    <div class="nav-label">
+    Tools
+    </div>
+    <a class="nav-link" data-page="eligibility.html" href="eligibility.html">
+    <i data-lucide="clipboard-check">
+    </i>
+    <span class="nav-text" data-t="eligibility">
+    Eligibility
+    </span>
+    </a>
+    <a class="nav-link" data-page="compatibility.html" href="compatibility.html">
+    <i data-lucide="git-compare">
+    </i>
+    <span class="nav-text" data-t="compatibility">
+    Compatibility
+    </span>
+    </a>
+    <a class="nav-link" data-page="resources.html" href="resources.html">
+    <i data-lucide="newspaper">
+    </i>
+    <span class="nav-text" data-t="resources">
+    Resources
+    </span>
+    </a>
+    <div class="nav-label">
+    Account
+    </div>
+    <a class="nav-link" data-page="login.html" href="login.html">
+    <i data-lucide="log-in">
+    </i>
+    <span class="nav-text" data-t="login">
+    Login
+    </span>
+    </a>
+    <a class="nav-link" data-page="signup.html" href="signup.html">
+    <i data-lucide="user-plus">
+    </i>
+    <span class="nav-text" data-t="signup">
+    Sign Up
+    </span>
+    </a>
+</nav>
+<div class="sidebar-bottom">
+    <a class="emergency-link" href="emergency.html">
+    <i data-lucide="siren">
+    </i>
+    <span class="emergency-text" data-t="emergency">
+    I Need Blood Now
+    </span>
+    </a>
+</div>
+</aside>
+<main class="main">
+<header class="topbar">
+    <div class="top-left">
+    <button class="menu-btn" id="menuBtn">
+    <i data-lucide="menu">
+    </i>
+    </button>
+    <button aria-label="Collapse navigation" class="menu-btn nav-logo-btn" id="collapseBtn">
+    <img class="nav-toggle-logo" src="assets/resq-logo.png"/>
+    </button>
+    <span class="top-title">
+    Become a donor
+    </span>
+    </div>
+    <div class="top-right">
+    <select class="lang" id="language">
+    <option value="en">
+    EN
+    </option>
+    <option value="hi">
+    हिन्दी
+    </option>
+    <option value="pa">
+    ਪੰਜਾਬੀ
+    </option>
+    </select>
+    <button class="theme-btn" id="themeBtn">
+    <i data-lucide="moon">
+    </i>
+    </button>
+    <a class="account-btn" href="login.html">
+    <i data-lucide="user-round">
+    </i>
+    <span>
+    Account
+    </span>
+    </a>
+    </div>
+</header>
+<section class="page">
+    <div class="form-wrap">
+    <div class="page-head">
+    <span class="eyebrow">
+    DONOR REGISTRATION
+    </span>
+    <h1>
+    Become part of
+    <span>
+        ResQ.
+    </span>
+    </h1>
+    <p>
+    Register your donor details so people looking for compatible blood can find available support in your city.
+    </p>
+    </div>
+    <div class="panel">
+    <form class="form-grid" id="donorForm">
+    <div class="field">
+        <label for="donorName">
+        Full Name
+        </label>
+        <input id="donorName" placeholder="Enter your full name" type="text"/>
+        <small class="error" id="nameError">
+        </small>
+    </div>
+    <div class="field">
+        <label for="bloodGroup">
+        Blood Group
+        </label>
+        <select id="bloodGroup">
+        <option value="">
+        Select blood group
+        </option>
+        <option>
+        A+
+        </option>
+        <option>
+        A-
+        </option>
+        <option>
+        B+
+        </option>
+        <option>
+        B-
+        </option>
+        <option>
+        AB+
+        </option>
+        <option>
+        AB-
+        </option>
+        <option>
+        O+
+        </option>
+        <option>
+        O-
+        </option>
+        </select>
+        <small class="error" id="bloodError">
+        </small>
+    </div>
+    <div class="field">
+        <label for="phone">
+        Phone Number
+        </label>
+        <input id="phone" placeholder="10-digit phone number" type="tel"/>
+        <small class="error" id="phoneError">
+        </small>
+    </div>
+    <div class="field">
+        <label for="city">
+        City
+        </label>
+        <input id="city" placeholder="Your city" type="text"/>
+        <small class="error" id="cityError">
+        </small>
+    </div>
+    <div class="field">
+        <label for="age">
+        Age
+        </label>
+        <input id="age" max="65" min="18" placeholder="Age" type="number"/>
+        <small class="error" id="ageError">
+        </small>
+    </div>
+    <div class="field">
+        <label for="availability">
+        Availability
+        </label>
+        <select id="availability">
+        <option value="">
+        Select availability
+        </option>
+        <option>
+        Available
+        </option>
+        <option>
+        Not Available
+        </option>
+        </select>
+        <small class="error" id="availabilityError">
+        </small>
+    </div>
+    <button class="btn btn-primary field full" type="submit">
+        Register as Donor
+    </button>
+    <div class="success field full" id="successMessage">
+    </div>
+    </form>
+    </div>
+    </div>
+</section>
+</main>
+</div>
+<script src="js/app.js">
+</script>
+<script src="js/donor.js">
+</script>
+</body>
 </html>
 
