@@ -1,417 +1,416 @@
-const emergencyForm =
-    document.getElementById(
-        "emergencyForm"
-    );
+const bloodButtons = document.querySelectorAll("[data-blood]");
 
-const bloodOptions =
-    document.querySelectorAll(
-        ".blood-option"
-    );
+const nextBtn = document.querySelector("[data-next]");
+const backBtn = document.querySelector("[data-back]");
 
-const emergencySteps =
-    document.querySelectorAll(
-        ".emergency-step"
-    );
+const steps = document.querySelectorAll(".emergency-step");
 
-const selectedBlood =
-    document.getElementById(
-        "selectedBlood"
-    );
+const emergencyForm = document.getElementById("emergencyForm");
 
-const emergencyError =
-    document.getElementById(
-        "emergencyError"
-    );
+const patientName = document.getElementById("patientName");
+const requestCity = document.getElementById("requestCity");
+const hospital = document.getElementById("hospital");
+const contactNumber = document.getElementById("contactNumber");
+const bloodUnits = document.getElementById("bloodUnits");
+const urgency = document.getElementById("urgency");
 
-const emergencyMessage =
-    document.getElementById(
-        "emergencyMessage"
-    );
+const selectedBlood = document.getElementById("selectedBlood");
+
+const emergencyError = document.getElementById("emergencyError");
+const emergencyMessage = document.getElementById("emergencyMessage");
 
 
 let selectedBloodGroup = "";
 
 
-function getStorageData(key) {
-    try {
-        const data =
-            localStorage.getItem(key);
+/* =========================================
+   SHOW ERROR MESSAGE
+========================================= */
 
-        return data
-            ? JSON.parse(data)
-            : [];
+function showError(message) {
+    if (!emergencyError) return;
+
+    emergencyError.textContent = message;
+}
+
+
+function clearError() {
+    if (!emergencyError) return;
+
+    emergencyError.textContent = "";
+}
+
+
+/* =========================================
+   SHOW SUCCESS MESSAGE
+========================================= */
+
+function showSuccess(message) {
+    if (!emergencyMessage) return;
+
+    emergencyMessage.textContent = message;
+}
+
+
+function clearSuccess() {
+    if (!emergencyMessage) return;
+
+    emergencyMessage.textContent = "";
+}
+
+
+/* =========================================
+   CHANGE STEP
+========================================= */
+
+function showStep(stepNumber) {
+
+    steps.forEach((step, index) => {
+
+        if (index === stepNumber) {
+            step.classList.add("active");
+        } else {
+            step.classList.remove("active");
+        }
+
+    });
+
+}
+
+
+/* =========================================
+   SELECT BLOOD GROUP
+========================================= */
+
+bloodButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        selectedBloodGroup = button.dataset.blood;
+
+
+        bloodButtons.forEach(btn => {
+            btn.classList.remove("selected");
+        });
+
+
+        button.classList.add("selected");
+
+
+        if (selectedBlood) {
+            selectedBlood.textContent = selectedBloodGroup;
+        }
+
+
+        clearError();
+
+    });
+
+});
+
+
+/* =========================================
+   CONTINUE TO STEP 2
+========================================= */
+
+if (nextBtn) {
+
+    nextBtn.addEventListener("click", () => {
+
+        if (!selectedBloodGroup) {
+
+            showError(
+                "Please select the required blood group."
+            );
+
+            return;
+        }
+
+
+        clearError();
+
+        showStep(1);
+
+    });
+
+}
+
+
+/* =========================================
+   GO BACK TO STEP 1
+========================================= */
+
+if (backBtn) {
+
+    backBtn.addEventListener("click", () => {
+
+        clearError();
+        clearSuccess();
+
+        showStep(0);
+
+    });
+
+}
+
+
+/* =========================================
+   GET EXISTING EMERGENCY REQUESTS
+========================================= */
+
+function getEmergencyRequests() {
+
+    try {
+
+        const storedRequests =
+            localStorage.getItem(
+                "resqEmergencyRequests"
+            );
+
+
+        if (!storedRequests) {
+            return [];
+        }
+
+
+        return JSON.parse(
+            storedRequests
+        );
 
     } catch (error) {
+
         console.error(
-            `Unable to read ${key}:`,
+            "Error reading emergency requests:",
             error
         );
 
         return [];
+
     }
+
 }
 
 
-function saveStorageData(
-    key,
-    data
-) {
-    localStorage.setItem(
-        key,
-        JSON.stringify(data)
-    );
-}
+/* =========================================
+   CREATE EMERGENCY REQUEST
+========================================= */
+
+function createEmergencyRequest() {
+
+    const name =
+        patientName.value.trim();
+
+    const city =
+        requestCity.value.trim();
+
+    const hospitalName =
+        hospital.value.trim();
+
+    const contact =
+        contactNumber.value
+            .trim()
+            .replace(/\s/g, "");
+
+    const units =
+        Number(bloodUnits.value);
+
+    const urgencyLevel =
+        urgency.value;
 
 
-bloodOptions.forEach(
-    button => {
+    /* -----------------------------
+       VALIDATION
+    ----------------------------- */
 
-        button.addEventListener(
-            "click",
-            function () {
+    if (!selectedBloodGroup) {
 
-                bloodOptions.forEach(
-                    option => {
-                        option.classList.remove(
-                            "selected"
-                        );
-                    }
-                );
-
-
-                this.classList.add(
-                    "selected"
-                );
-
-
-                selectedBloodGroup =
-                    this.dataset.blood;
-
-
-                if (selectedBlood) {
-                    selectedBlood.textContent =
-                        selectedBloodGroup;
-                }
-
-
-                if (emergencyError) {
-                    emergencyError.textContent =
-                        "";
-                }
-
-            }
+        showError(
+            "Please select a blood group."
         );
 
+        showStep(0);
+
+        return null;
+
     }
-);
 
 
-const nextButton =
-    document.querySelector(
-        "[data-next]"
-    );
+    if (!name || name.length < 2) {
+
+        showError(
+            "Please enter a valid patient name."
+        );
+
+        return null;
+
+    }
 
 
-if (nextButton) {
+    if (!city) {
 
-    nextButton.addEventListener(
-        "click",
-        function () {
+        showError(
+            "Please enter the city."
+        );
 
-            if (!selectedBloodGroup) {
+        return null;
 
-                emergencyError.textContent =
-                    "Please select a blood group first.";
-
-                return;
-            }
+    }
 
 
-            emergencyError.textContent =
-                "";
+    if (!hospitalName) {
+
+        showError(
+            "Please enter the hospital name."
+        );
+
+        return null;
+
+    }
 
 
-            emergencySteps[0]
-                .classList.remove(
-                    "active"
-                );
+    if (!/^\d{10}$/.test(contact)) {
+
+        showError(
+            "Please enter a valid 10-digit contact number."
+        );
+
+        return null;
+
+    }
 
 
-            emergencySteps[1]
-                .classList.add(
-                    "active"
-                );
+    if (!units || units < 1) {
+
+        showError(
+            "Please enter at least 1 blood unit."
+        );
+
+        return null;
+
+    }
 
 
-            selectedBlood.textContent =
-                selectedBloodGroup;
+    if (!urgencyLevel) {
 
-        }
-    );
+        showError(
+            "Please select the urgency level."
+        );
+
+        return null;
+
+    }
+
+
+    /* -----------------------------
+       RETURN REQUEST OBJECT
+    ----------------------------- */
+
+    return {
+
+        id:
+            Date.now().toString(),
+
+        patientName:
+            name,
+
+        bloodGroup:
+            selectedBloodGroup,
+
+        city:
+            city,
+
+        hospital:
+            hospitalName,
+
+        contact:
+            contact,
+
+        units:
+            units,
+
+        urgency:
+            urgencyLevel,
+
+        status:
+            "Open",
+
+        createdAt:
+            new Date().toISOString()
+
+    };
+
 }
 
 
-const backButton =
-    document.querySelector(
-        "[data-back]"
-    );
-
-
-if (backButton) {
-
-    backButton.addEventListener(
-        "click",
-        function () {
-
-            emergencySteps[1]
-                .classList.remove(
-                    "active"
-                );
-
-
-            emergencySteps[0]
-                .classList.add(
-                    "active"
-                );
-
-
-            emergencyError.textContent =
-                "";
-
-            emergencyMessage.textContent =
-                "";
-
-        }
-    );
-}
-
+/* =========================================
+   SUBMIT EMERGENCY REQUEST
+========================================= */
 
 if (emergencyForm) {
 
     emergencyForm.addEventListener(
         "submit",
-        function (event) {
+        event => {
 
             event.preventDefault();
 
 
-            emergencyError.textContent =
-                "";
-
-            emergencyMessage.textContent =
-                "";
+            clearError();
+            clearSuccess();
 
 
-            if (!selectedBloodGroup) {
-
-                emergencySteps[1]
-                    .classList.remove(
-                        "active"
-                    );
+            const request =
+                createEmergencyRequest();
 
 
-                emergencySteps[0]
-                    .classList.add(
-                        "active"
-                    );
-
-
-                emergencyError.textContent =
-                    "Please select a blood group.";
-
+            if (!request) {
                 return;
             }
-
-
-            const patientName =
-                document
-                    .getElementById(
-                        "patientName"
-                    )
-                    .value
-                    .trim();
-
-
-            const city =
-                document
-                    .getElementById(
-                        "requestCity"
-                    )
-                    .value
-                    .trim();
-
-
-            const hospital =
-                document
-                    .getElementById(
-                        "hospital"
-                    )
-                    .value
-                    .trim();
-
-
-            const contact =
-                document
-                    .getElementById(
-                        "contactNumber"
-                    )
-                    .value
-                    .trim();
-
-
-            const units =
-                document
-                    .getElementById(
-                        "bloodUnits"
-                    )
-                    .value;
-
-
-            const urgency =
-                document
-                    .getElementById(
-                        "urgency"
-                    )
-                    .value;
-
-
-            if (!patientName) {
-
-                emergencyError.textContent =
-                    "Please enter the patient's name.";
-
-                return;
-            }
-
-
-            if (!city) {
-
-                emergencyError.textContent =
-                    "Please enter the city.";
-
-                return;
-            }
-
-
-            if (!hospital) {
-
-                emergencyError.textContent =
-                    "Please enter the hospital name.";
-
-                return;
-            }
-
-
-            if (
-                !/^[0-9]{10}$/.test(
-                    contact
-                )
-            ) {
-
-                emergencyError.textContent =
-                    "Please enter a valid 10-digit contact number.";
-
-                return;
-            }
-
-
-            if (
-                !units ||
-                Number(units) < 1
-            ) {
-
-                emergencyError.textContent =
-                    "Please enter at least one blood unit.";
-
-                return;
-            }
-
-
-            if (!urgency) {
-
-                emergencyError.textContent =
-                    "Please select the urgency level.";
-
-                return;
-            }
-
-
-            const request = {
-
-                id:
-                    Date.now(),
-
-                patientName,
-
-                bloodGroup:
-                    selectedBloodGroup,
-
-                city,
-
-                hospital,
-
-                contact,
-
-                units:
-                    Number(units),
-
-                urgency,
-
-                status:
-                    "Active",
-
-                createdAt:
-                    new Date().toISOString()
-
-            };
 
 
             const requests =
-                getStorageData(
-                    "resqEmergencyRequests"
-                );
+                getEmergencyRequests();
 
 
-            requests.push(
+            requests.unshift(
                 request
             );
 
 
-            saveStorageData(
+            localStorage.setItem(
                 "resqEmergencyRequests",
-                requests
+                JSON.stringify(requests)
             );
 
 
-            emergencyMessage.textContent =
-                `Emergency request submitted successfully. Searching for compatible ${selectedBloodGroup} blood donors near ${city}...`;
-
-
-            setTimeout(
-                function () {
-
-                    const params =
-                        new URLSearchParams({
-
-                            blood:
-                                selectedBloodGroup,
-
-                            city:
-                                city,
-
-                            emergency:
-                                "true"
-
-                        });
-
-
-                    window.location.href =
-                        `find-blood.html?${params.toString()}`;
-
-                },
-                1200
+            showSuccess(
+                "Emergency request created. Searching for compatible donors..."
             );
+
+
+            const params =
+                new URLSearchParams({
+                    blood: request.bloodGroup,
+                    city: request.city,
+                    emergency: "true"
+                });
+
+
+            setTimeout(() => {
+
+                window.location.href =
+                    `find-blood.html?${params.toString()}`;
+
+            }, 800);
 
         }
     );
+
 }
+
+
+/* =========================================
+   INITIAL STATE
+========================================= */
+
+showStep(0);

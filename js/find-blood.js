@@ -355,8 +355,8 @@ document.addEventListener(
     }
 );
 
-
 function loadEmergencySearch() {
+
     const params =
         new URLSearchParams(
             window.location.search
@@ -371,27 +371,60 @@ function loadEmergencySearch() {
     const isEmergency =
         params.get("emergency") === "true";
 
-    if (!blood || !city) {
+
+    if (
+        !blood ||
+        !city ||
+        !searchBloodGroup ||
+        !searchCity
+    ) {
         return;
     }
 
-    if (searchBloodGroup) {
-        searchBloodGroup.value = blood;
-    }
 
-    if (searchCity) {
-        searchCity.value = city;
-    }
+    searchBloodGroup.value =
+        blood;
 
-    performSearch();
+    searchCity.value =
+        city;
+
+
+    const matchingDonors =
+        searchDonors(
+            blood,
+            city
+        );
+
+
+    displayDonors(
+        matchingDonors,
+        blood,
+        city
+    );
+
 
     if (isEmergency && searchMessage) {
-        searchMessage.textContent =
-            `Emergency search: compatible available donors for ${blood} in ${city}.`;
 
-        searchMessage.className =
-            "search-success";
+        if (matchingDonors.length > 0) {
+
+            searchMessage.textContent =
+                `Emergency search: ${matchingDonors.length} compatible available donor(s) found for ${blood} in ${city}.`;
+
+            searchMessage.className =
+                "search-success";
+
+        } else {
+
+            searchMessage.textContent =
+                `Emergency search: no compatible available donors were found for ${blood} in ${city}.`;
+
+            searchMessage.className =
+                "search-error";
+
+        }
+
     }
+
 }
 
 
