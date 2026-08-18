@@ -1,223 +1,756 @@
-const sidebar = document.getElementById("sidebar");
-const menuBtn = document.getElementById("menuBtn");
-const collapseBtn = document.getElementById("collapseBtn");
-const themeBtn = document.getElementById("themeBtn");
-const language = document.getElementById("language");
+const sidebar =
+    document.getElementById(
+        "sidebar"
+    );
 
+const menuBtn =
+    document.getElementById(
+        "menuBtn"
+    );
+
+const collapseBtn =
+    document.getElementById(
+        "collapseBtn"
+    );
+
+const themeBtn =
+    document.getElementById(
+        "themeBtn"
+    );
+
+const language =
+    document.getElementById(
+        "language"
+    );
+
+
+/* =========================================
+   ICONS
+========================================= */
 
 function icons() {
+
     if (window.lucide) {
+
         lucide.createIcons();
+
     }
+
 }
 
 
-function setTheme(value) {
+/* =========================================
+   SIDEBAR
+========================================= */
 
-    document.body.classList.toggle(
-        "dark",
-        value === "dark"
+if (menuBtn && sidebar) {
+
+    menuBtn.addEventListener(
+        "click",
+        function () {
+
+            sidebar.classList.toggle(
+                "open"
+            );
+
+        }
     );
+
+}
+
+
+if (collapseBtn && sidebar) {
+
+    collapseBtn.addEventListener(
+        "click",
+        function () {
+
+            sidebar.classList.toggle(
+                "collapsed"
+            );
+
+            localStorage.setItem(
+                "resqSidebarCollapsed",
+                sidebar.classList.contains(
+                    "collapsed"
+                )
+            );
+
+        }
+    );
+
+}
+
+
+if (
+    sidebar &&
+    localStorage.getItem(
+        "resqSidebarCollapsed"
+    ) === "true"
+) {
+
+    sidebar.classList.add(
+        "collapsed"
+    );
+
+}
+
+
+/* =========================================
+   THEME
+========================================= */
+
+function applyTheme(
+    theme
+) {
+
+    document.documentElement.setAttribute(
+        "data-theme",
+        theme
+    );
+
 
     localStorage.setItem(
         "resqTheme",
-        value
+        theme
     );
 
-    
-    if (themeBtn) {
 
-        themeBtn.innerHTML =
-            value === "dark"
-                ? '<i data-lucide="sun"></i>'
-                : '<i data-lucide="moon"></i>';
+    if (!themeBtn) {
+        return;
     }
 
-    
+
+    themeBtn.innerHTML =
+        theme === "dark"
+            ? '<i data-lucide="sun"></i>'
+            : '<i data-lucide="moon"></i>';
+
+
     icons();
+
 }
 
-setTheme(
-    localStorage.getItem("resqTheme") || "light"
-);
+
+const savedTheme =
+    localStorage.getItem(
+        "resqTheme"
+    );
+
+
+if (savedTheme) {
+
+    applyTheme(
+        savedTheme
+    );
+
+}
 
 
 if (themeBtn) {
 
-    themeBtn.onclick = () => {
+    themeBtn.addEventListener(
+        "click",
+        function () {
 
-        const newTheme =
-            document.body.classList.contains("dark")
-                ? "light"
-                : "dark";
+            const currentTheme =
+                document.documentElement.getAttribute(
+                    "data-theme"
+                );
 
-        setTheme(newTheme);
-    };
+
+            applyTheme(
+                currentTheme === "dark"
+                    ? "light"
+                    : "dark"
+            );
+
+        }
+    );
+
 }
 
 
-if (menuBtn) {
+/* =========================================
+   LANGUAGE
+========================================= */
 
-    menuBtn.onclick = () => {
-
-        if (window.innerWidth <= 850) {
-
-            sidebar.classList.toggle("open");
-        }
-        else {
-
-            sidebar.classList.toggle("collapsed");
-        }
-    };
-}
-
-if (collapseBtn) {
-
-    collapseBtn.onclick = () => {
-
-        sidebar.classList.toggle("collapsed");
-
-    };
-}
-
-
-
-const page =
-    location.pathname.split("/").pop()
-    || "index.html";
-
-
-document
-    .querySelectorAll(".nav-link[data-page]")
-    .forEach(link => {
-
-        if (link.dataset.page === page) {
-
-            link.classList.add("active");
-
-        }
-    });
-
-
-document
-    .querySelectorAll(".nav-link")
-    .forEach(link => {
-
-        link.onclick = () => {
-
-            if (sidebar) {
-
-                sidebar.classList.remove("open");
-
-            }
-        };
-    });
-
-
-const dict = {
+const translations = {
 
     en: {
 
-        home: "Home",
-        find: "Find Blood",
-        hospitals: "Hospitals",
-        dashboard: "Dashboard",
-        eligibility: "Eligibility",
-        compatibility: "Compatibility",
-        resources: "Resources",
-        account: "Account",
-        login: "Login",
-        signup: "Sign Up",
-        emergency: "I Need Blood Now"
-    },
+        home:
+            "Home",
 
+        find:
+            "Find Blood",
+
+        hospitals:
+            "Hospitals",
+
+        dashboard:
+            "Dashboard",
+
+        eligibility:
+            "Eligibility",
+
+        compatibility:
+            "Compatibility",
+
+        resources:
+            "Resources",
+
+        account:
+            "Account"
+
+    },
 
     hi: {
 
-        home: "होम",
-        find: "रक्त खोजें",
-        hospitals: "अस्पताल",
-        dashboard: "डैशबोर्ड",
-        eligibility: "पात्रता",
-        compatibility: "संगतता",
-        resources: "संसाधन",
-        account: "खाता",
-        login: "लॉगिन",
-        signup: "साइन अप",
-        emergency: "मुझे अभी रक्त चाहिए"
-    },
+        home:
+            "होम",
 
+        find:
+            "रक्त खोजें",
+
+        hospitals:
+            "अस्पताल",
+
+        dashboard:
+            "डैशबोर्ड",
+
+        eligibility:
+            "पात्रता",
+
+        compatibility:
+            "अनुकूलता",
+
+        resources:
+            "संसाधन",
+
+        account:
+            "अकाउंट"
+
+    },
 
     pa: {
 
-        home: "ਹੋਮ",
-        find: "ਖੂਨ ਲੱਭੋ",
-        hospitals: "ਹਸਪਤਾਲ",
-        dashboard: "ਡੈਸ਼ਬੋਰਡ",
-        eligibility: "ਯੋਗਤਾ",
-        compatibility: "ਅਨੁਕੂਲਤਾ",
-        resources: "ਸਰੋਤ",
-        account: "ਖਾਤਾ",
-        login: "ਲੌਗਇਨ",
-        signup: "ਸਾਈਨ ਅੱਪ",
-        emergency: "ਮੈਨੂੰ ਹੁਣੇ ਖੂਨ ਚਾਹੀਦਾ ਹੈ"
+        home:
+            "ਹੋਮ",
+
+        find:
+            "ਖੂਨ ਲੱਭੋ",
+
+        hospitals:
+            "ਹਸਪਤਾਲ",
+
+        dashboard:
+            "ਡੈਸ਼ਬੋਰਡ",
+
+        eligibility:
+            "ਯੋਗਤਾ",
+
+        compatibility:
+            "ਅਨੁਕੂਲਤਾ",
+
+        resources:
+            "ਸਰੋਤ",
+
+        account:
+            "ਅਕਾਊਂਟ"
+
     }
+
 };
 
 
-function applyLanguage(value) {
+function applyLanguage(
+    lang
+) {
 
-    const d = dict[value] || dict.en;
+    const dictionary =
+        translations[lang];
+
+
+    if (!dictionary) {
+        return;
+    }
 
 
     document
-        .querySelectorAll("[data-t]")
-        .forEach(element => {
+        .querySelectorAll(
+            "[data-t]"
+        )
+        .forEach(
+            element => {
 
-            const key = element.dataset.t;
+                const key =
+                    element.dataset.t;
 
-            if (d[key]) {
 
-                element.textContent = d[key];
+                if (
+                    dictionary[key]
+                ) {
+
+                    element.textContent =
+                        dictionary[key];
+
+                }
 
             }
-        });
+        );
 
 
     localStorage.setItem(
         "resqLanguage",
-        value
+        lang
+    );
+
+}
+
+
+const savedLanguage =
+    localStorage.getItem(
+        "resqLanguage"
     );
 
 
+if (
+    savedLanguage &&
+    translations[savedLanguage]
+) {
+
     if (language) {
 
-        language.value = value;
+        language.value =
+            savedLanguage;
 
     }
 
 
-    document.documentElement.lang = value;
+    applyLanguage(
+        savedLanguage
+    );
+
 }
 
 
 if (language) {
 
-    const savedLanguage =
-        localStorage.getItem("resqLanguage")
-        || "en";
+    language.addEventListener(
+        "change",
+        function (event) {
 
+            applyLanguage(
+                event.target.value
+            );
 
-    applyLanguage(savedLanguage);
+        }
+    );
 
-
-    language.onchange = event => {
-
-        applyLanguage(
-            event.target.value
-        );
-    };
 }
 
+
+/* =========================================
+   GET CURRENT USER
+========================================= */
+
+function getCurrentUser() {
+
+    try {
+
+        const data =
+            localStorage.getItem(
+                "resqCurrentUser"
+            );
+
+
+        return data
+            ? JSON.parse(data)
+            : null;
+
+    } catch (error) {
+
+        console.error(
+            "Unable to read current user:",
+            error
+        );
+
+        return null;
+
+    }
+
+}
+
+
+/* =========================================
+   UPDATE TOP ACCOUNT BUTTON
+========================================= */
+
+function updateTopAccountButton() {
+
+    const accountButtons =
+        document.querySelectorAll(
+            ".account-btn"
+        );
+
+
+    if (
+        !accountButtons.length
+    ) {
+        return;
+    }
+
+
+    const currentUser =
+        getCurrentUser();
+
+
+    accountButtons.forEach(
+        function (button) {
+
+            if (currentUser) {
+
+                button.href =
+                    "account.html";
+
+
+                const text =
+                    button.querySelector(
+                        "span"
+                    );
+
+
+                if (text) {
+
+                    text.textContent =
+                        currentUser.name ||
+                        "Account";
+
+                }
+
+            }
+
+            else {
+
+                button.href =
+                    "login.html";
+
+
+                const text =
+                    button.querySelector(
+                        "span"
+                    );
+
+
+                if (text) {
+
+                    text.textContent =
+                        "Account";
+
+                }
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   UPDATE SIDEBAR ACCOUNT SECTION
+========================================= */
+
+function updateAccountSection() {
+
+    const accountSection =
+        document.getElementById(
+            "accountSection"
+        );
+
+
+    if (!accountSection) {
+
+        updateTopAccountButton();
+
+        return;
+
+    }
+
+
+    const currentUser =
+        getCurrentUser();
+
+
+    accountSection.innerHTML =
+        "";
+
+
+    const label =
+        document.createElement(
+            "div"
+        );
+
+
+    label.className =
+        "nav-label";
+
+
+    label.textContent =
+        "Account";
+
+
+    accountSection.appendChild(
+        label
+    );
+
+
+    if (!currentUser) {
+
+        const loginLink =
+            document.createElement(
+                "a"
+            );
+
+
+        loginLink.className =
+            "nav-link";
+
+
+        loginLink.dataset.page =
+            "login.html";
+
+
+        loginLink.href =
+            "login.html";
+
+
+        loginLink.innerHTML =
+            `
+                <i data-lucide="log-in"></i>
+
+                <span class="nav-text">
+                    Login
+                </span>
+            `;
+
+
+        const signupLink =
+            document.createElement(
+                "a"
+            );
+
+
+        signupLink.className =
+            "nav-link";
+
+
+        signupLink.dataset.page =
+            "signup.html";
+
+
+        signupLink.href =
+            "signup.html";
+
+
+        signupLink.innerHTML =
+            `
+                <i data-lucide="user-plus"></i>
+
+                <span class="nav-text">
+                    Sign Up
+                </span>
+            `;
+
+
+        accountSection.appendChild(
+            loginLink
+        );
+
+
+        accountSection.appendChild(
+            signupLink
+        );
+
+    }
+
+    else {
+
+        const userLink =
+            document.createElement(
+                "a"
+            );
+
+
+        userLink.className =
+            "nav-link";
+
+
+        userLink.dataset.page =
+            "account.html";
+
+
+        /* THIS WAS THE BUG */
+
+        userLink.href =
+            "account.html";
+
+
+        userLink.innerHTML =
+            `
+                <i data-lucide="circle-user-round"></i>
+
+                <span class="nav-text"></span>
+            `;
+
+
+        userLink
+            .querySelector(
+                ".nav-text"
+            )
+            .textContent =
+            currentUser.name ||
+            "My Account";
+
+
+        const logoutButton =
+            document.createElement(
+                "button"
+            );
+
+
+        logoutButton.type =
+            "button";
+
+
+        logoutButton.className =
+            "nav-link logout-btn";
+
+
+        logoutButton.innerHTML =
+            `
+                <i data-lucide="log-out"></i>
+
+                <span class="nav-text">
+                    Logout
+                </span>
+            `;
+
+
+        logoutButton.addEventListener(
+            "click",
+            function () {
+
+                localStorage.removeItem(
+                    "resqCurrentUser"
+                );
+
+
+                window.location.href =
+                    "index.html";
+
+            }
+        );
+
+
+        accountSection.appendChild(
+            userLink
+        );
+
+
+        accountSection.appendChild(
+            logoutButton
+        );
+
+    }
+
+
+    updateTopAccountButton();
+
+
+    icons();
+
+
+    updateActiveNavigation();
+
+}
+
+
+/* =========================================
+   ACTIVE NAVIGATION
+========================================= */
+
+function updateActiveNavigation() {
+
+    const currentPage =
+        window.location.pathname
+            .split("/")
+            .pop()
+        ||
+        "index.html";
+
+
+    document
+        .querySelectorAll(
+            ".nav-link"
+        )
+        .forEach(
+            function (link) {
+
+                const page =
+                    link.dataset.page;
+
+
+                link.classList.toggle(
+                    "active",
+                    page === currentPage
+                );
+
+            }
+        );
+
+}
+
+
+/* =========================================
+   CLOSE MOBILE SIDEBAR
+========================================= */
+
+document
+    .querySelectorAll(
+        ".nav-link"
+    )
+    .forEach(
+        function (link) {
+
+            link.addEventListener(
+                "click",
+                function () {
+
+                    if (sidebar) {
+
+                        sidebar.classList.remove(
+                            "open"
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+/* =========================================
+   INITIALIZE
+========================================= */
+
+updateAccountSection();
+
+updateTopAccountButton();
+
+updateActiveNavigation();
 
 icons();

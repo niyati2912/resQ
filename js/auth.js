@@ -1,58 +1,206 @@
-const authForm = document.getElementById("authForm");
-const authMessage = document.getElementById("authMessage");
+const authForm =
+    document.getElementById("authForm");
+
+const authMessage =
+    document.getElementById("authMessage");
 
 
-function showMessage(message, isError = false) {
+function showMessage(
+    message,
+    isError = false
+) {
 
-    if (!authMessage) return;
+    if (!authMessage) {
+        return;
+    }
 
-    authMessage.textContent = message;
 
-    authMessage.style.color = isError
-        ? "#dc2626"
-        : "#16a34a";
+    authMessage.textContent =
+        message;
+
+
+    authMessage.style.color =
+        isError
+            ? "#dc2626"
+            : "#16a34a";
+
 }
 
 
 function getUsers() {
 
-    return JSON.parse(
-        localStorage.getItem("resqUsers")
-    ) || [];
+    try {
+
+        return JSON.parse(
+            localStorage.getItem(
+                "resqUsers"
+            )
+        ) || [];
+
+    } catch (error) {
+
+        console.error(
+            "Unable to read users:",
+            error
+        );
+
+        return [];
+
+    }
+
 }
 
 
-function saveUsers(users) {
+function saveUsers(
+    users
+) {
 
     localStorage.setItem(
         "resqUsers",
         JSON.stringify(users)
     );
+
 }
 
 
-function setCurrentUser(user) {
+function setCurrentUser(
+    user
+) {
 
     localStorage.setItem(
         "resqCurrentUser",
         JSON.stringify({
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            phone: user.phone,
-            city: user.city,
-            bloodGroup: user.bloodGroup,
-            role: user.role,
-            available: user.available
+
+            id:
+                user.id,
+
+            name:
+                user.name,
+
+            email:
+                user.email,
+
+            phone:
+                user.phone,
+
+            city:
+                user.city,
+
+            bloodGroup:
+                user.bloodGroup,
+
+            role:
+                user.role,
+
+            available:
+                user.available
+
         })
     );
+
+}
+
+
+function syncUserAsDonor(
+    user
+) {
+
+    if (
+        user.role !== "Donor"
+    ) {
+        return;
+    }
+
+
+    let donors = [];
+
+
+    try {
+
+        donors =
+            JSON.parse(
+                localStorage.getItem(
+                    "resqDonors"
+                )
+            ) || [];
+
+    } catch (error) {
+
+        donors = [];
+
+    }
+
+
+    const donorIndex =
+        donors.findIndex(
+            donor =>
+                donor.phone ===
+                user.phone
+        );
+
+
+    const donorData = {
+
+        id:
+            user.id,
+
+        name:
+            user.name,
+
+        bloodGroup:
+            user.bloodGroup,
+
+        phone:
+            user.phone,
+
+        city:
+            user.city,
+
+        availability:
+            user.available
+                ? "Available"
+                : "Unavailable"
+
+    };
+
+
+    if (
+        donorIndex !== -1
+    ) {
+
+        donors[donorIndex] = {
+
+            ...donors[donorIndex],
+
+            ...donorData
+
+        };
+
+    } else {
+
+        donors.push(
+            donorData
+        );
+
+    }
+
+
+    localStorage.setItem(
+        "resqDonors",
+        JSON.stringify(donors)
+    );
+
 }
 
 
 function handleSignup() {
 
     const name =
-        document.getElementById("name").value.trim();
+        document
+            .getElementById("name")
+            .value
+            .trim();
+
 
     const email =
         document
@@ -61,20 +209,37 @@ function handleSignup() {
             .trim()
             .toLowerCase();
 
+
     const phone =
-        document.getElementById("phone").value.trim();
+        document
+            .getElementById("phone")
+            .value
+            .trim();
+
 
     const city =
-        document.getElementById("city").value.trim();
+        document
+            .getElementById("city")
+            .value
+            .trim();
+
 
     const bloodGroup =
-        document.getElementById("bloodGroup").value;
+        document
+            .getElementById("bloodGroup")
+            .value;
+
 
     const role =
-        document.getElementById("role").value;
+        document
+            .getElementById("role")
+            .value;
+
 
     const password =
-        document.getElementById("password").value;
+        document
+            .getElementById("password")
+            .value;
 
 
     if (
@@ -93,10 +258,29 @@ function handleSignup() {
         );
 
         return;
+
     }
 
 
-    if (password.length < 6) {
+    if (
+        !/^[0-9]{10}$/.test(
+            phone
+        )
+    ) {
+
+        showMessage(
+            "Please enter a valid 10-digit phone number.",
+            true
+        );
+
+        return;
+
+    }
+
+
+    if (
+        password.length < 6
+    ) {
 
         showMessage(
             "Password must be at least 6 characters.",
@@ -104,15 +288,19 @@ function handleSignup() {
         );
 
         return;
+
     }
 
 
-    const users = getUsers();
+    const users =
+        getUsers();
 
 
-    const existingUser = users.find(
-        user => user.email === email
-    );
+    const existingUser =
+        users.find(
+            user =>
+                user.email === email
+        );
 
 
     if (existingUser) {
@@ -123,36 +311,53 @@ function handleSignup() {
         );
 
         return;
+
     }
 
 
     const newUser = {
 
-        id: Date.now(),
+        id:
+            Date.now(),
 
-        name: name,
+        name,
 
-        email: email,
+        email,
 
-        password: password,
+        password,
 
-        phone: phone,
+        phone,
 
-        city: city,
+        city,
 
-        bloodGroup: bloodGroup,
+        bloodGroup,
 
-        role: role,
+        role,
 
-        available: role === "Donor"
+        available:
+            role === "Donor"
+
     };
 
 
-    users.push(newUser);
+    users.push(
+        newUser
+    );
 
-    saveUsers(users);
 
-    setCurrentUser(newUser);
+    saveUsers(
+        users
+    );
+
+
+    syncUserAsDonor(
+        newUser
+    );
+
+
+    setCurrentUser(
+        newUser
+    );
 
 
     showMessage(
@@ -160,12 +365,16 @@ function handleSignup() {
     );
 
 
-    setTimeout(() => {
+    setTimeout(
+        function () {
 
-        window.location.href =
-            "dashboard.html";
+            window.location.href =
+                "dashboard.html";
 
-    }, 1000);
+        },
+        1000
+    );
+
 }
 
 
@@ -178,11 +387,17 @@ function handleLogin() {
             .trim()
             .toLowerCase();
 
+
     const password =
-        document.getElementById("password").value;
+        document
+            .getElementById("password")
+            .value;
 
 
-    if (!email || !password) {
+    if (
+        !email ||
+        !password
+    ) {
 
         showMessage(
             "Please enter your email and password.",
@@ -190,17 +405,20 @@ function handleLogin() {
         );
 
         return;
+
     }
 
 
-    const users = getUsers();
+    const users =
+        getUsers();
 
 
-    const user = users.find(
-        user =>
-            user.email === email &&
-            user.password === password
-    );
+    const user =
+        users.find(
+            user =>
+                user.email === email &&
+                user.password === password
+        );
 
 
     if (!user) {
@@ -211,10 +429,13 @@ function handleLogin() {
         );
 
         return;
+
     }
 
 
-    setCurrentUser(user);
+    setCurrentUser(
+        user
+    );
 
 
     showMessage(
@@ -222,13 +443,70 @@ function handleLogin() {
     );
 
 
-    setTimeout(() => {
+    setTimeout(
+        function () {
 
-        window.location.href =
-            "dashboard.html";
+            window.location.href =
+                "dashboard.html";
 
-    }, 1000);
+        },
+        1000
+    );
+
 }
+
+
+document
+    .querySelectorAll(
+        "[data-password-toggle]"
+    )
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    const input =
+                        document.getElementById(
+                            this.dataset
+                                .passwordToggle
+                        );
+
+
+                    if (!input) {
+                        return;
+                    }
+
+
+                    const showPassword =
+                        input.type ===
+                        "password";
+
+
+                    input.type =
+                        showPassword
+                            ? "text"
+                            : "password";
+
+
+                    this.innerHTML =
+                        showPassword
+                            ? '<i data-lucide="eye-off"></i>'
+                            : '<i data-lucide="eye"></i>';
+
+
+                    if (window.lucide) {
+
+                        lucide.createIcons();
+
+                    }
+
+                }
+            );
+
+        }
+    );
 
 
 if (authForm) {
@@ -239,15 +517,22 @@ if (authForm) {
 
             event.preventDefault();
 
+
             const mode =
                 authForm.dataset.mode;
 
 
-            if (mode === "signup") {
+            if (
+                mode === "signup"
+            ) {
 
                 handleSignup();
 
-            } else if (mode === "login") {
+            }
+
+            else if (
+                mode === "login"
+            ) {
 
                 handleLogin();
 
@@ -255,4 +540,5 @@ if (authForm) {
 
         }
     );
+
 }

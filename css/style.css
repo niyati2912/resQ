@@ -1155,3 +1155,341 @@
     border-color: var(--terra);
     transform: translateY(-2px);
 }
+
+/* =========================================
+   ACCOUNT PAGE
+========================================= */
+
+.account-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px;
+}
+
+
+.account-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    margin-bottom: 28px;
+}
+
+
+.account-avatar {
+    width: 72px;
+    height: 72px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: var(--terra);
+    color: white;
+}
+
+
+.account-avatar svg {
+    width: 34px;
+    height: 34px;
+}
+
+
+.account-header h1 {
+    margin: 0;
+}
+
+
+.account-header p {
+    margin: 6px 0 0;
+    opacity: 0.7;
+}
+
+
+.account-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+
+
+.account-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    padding: 28px;
+}
+
+
+.account-card-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+
+    align-items: flex-start;
+
+    margin-bottom: 28px;
+}
+
+
+.account-card-heading h2 {
+    margin: 0 0 8px;
+}
+
+
+.account-card-heading p {
+    margin: 0;
+    opacity: 0.7;
+}
+
+
+.account-card-heading svg {
+    color: var(--terra);
+}
+
+
+.account-form-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap: 18px;
+
+    margin-bottom: 22px;
+}
+
+
+/* PASSWORD INPUT WITH EYE BUTTON */
+
+.password-wrapper {
+    position: relative;
+}
+
+
+.password-wrapper input {
+    width: 100%;
+    padding-right: 52px;
+}
+
+
+.password-toggle {
+    position: absolute;
+
+    right: 10px;
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    width: 38px;
+    height: 38px;
+
+    border: none;
+    background: transparent;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    color: var(--muted);
+}
+
+
+.password-toggle:hover {
+    color: var(--terra);
+}
+
+
+.account-message {
+    min-height: 22px;
+    margin-top: 16px;
+}
+
+
+.account-message.success {
+    color: #16a34a;
+}
+
+
+.account-message.error {
+    color: #dc2626;
+}
+
+
+@media (max-width: 700px) {
+
+    .account-page {
+        padding: 20px;
+    }
+
+
+    .account-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .account-header {
+        align-items: flex-start;
+    }
+
+
+    .account-card {
+        padding: 20px;
+    }
+
+}
+
+/* =========================================
+   HOMEPAGE HERO IMAGE FIX
+========================================= */
+
+.hero-art {
+    position: relative;
+    min-height: 500px;
+    overflow: hidden;
+    border-radius: 28px;
+}
+
+
+.hero-logo {
+    position: absolute;
+    z-index: 2;
+
+    width: 430px;
+    max-width: none;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    object-fit: cover;
+}
+
+
+.hero-art::before {
+    width: 460px;
+    height: 460px;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%)
+        rotate(-8deg);
+}
+
+
+.hero-art::after {
+    width: 365px;
+    height: 365px;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+}
+
+
+/* Floating cards */
+
+.hero-note.one {
+    top: 42px;
+    left: 0;
+}
+
+
+.hero-note.two {
+    top: 50%;
+    right: -20px;
+
+    transform:
+        translateY(-50%);
+}
+
+
+.hero-note.three {
+    bottom: 35px;
+    left: 20px;
+}
+
+
+/* Tablet */
+
+@media (max-width: 1100px) {
+
+    .hero-art {
+        min-height: 450px;
+        width: min(650px, 100%);
+        margin: 0 auto;
+    }
+
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .hero-art {
+        min-height: 360px;
+        border-radius: 22px;
+    }
+
+
+    .hero-logo {
+        width: 310px;
+    }
+
+
+    .hero-art::before {
+        width: 330px;
+        height: 330px;
+    }
+
+
+    .hero-art::after {
+        width: 260px;
+        height: 260px;
+    }
+
+
+    .hero-note {
+        padding: 11px 13px;
+    }
+
+
+    .hero-note strong {
+        font-size: 15px;
+    }
+
+
+    .hero-note.one {
+        top: 25px;
+        left: -5px;
+    }
+
+
+    .hero-note.two {
+        top: 48%;
+        right: -35px;
+    }
+
+
+    .hero-note.three {
+        left: 10px;
+        bottom: 20px;
+    }
+
+}
