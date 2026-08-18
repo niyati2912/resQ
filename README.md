@@ -1,50 +1,193 @@
-# ResQ
+ResQ
 
 <p align="center">
   <strong>Emergency Blood Support & Donor Discovery Platform</strong>
 </p>
 
 <p align="center">
-  A frontend-first emergency blood support platform designed to reduce the time required to find compatible donors, hospitals, and blood banks.
+  A frontend-first web application that helps users register as blood donors, search compatible donors, create emergency blood requests, check basic donation eligibility, and locate medical facilities.
 </p>
 
----
+────────
 
-## Overview
+Table of Contents
 
-ResQ is a web application built around one simple idea:
+* Problem Statement
+* Solution
+* Core Features
+* Application Architecture
+* Application Flow
+* Data Model and Storage
+* Blood Compatibility Logic
+* Technology Stack
+* Project Structure
+* How to Run
+* Limitations
+* Future Improvements
+* Viva Quick Revision
 
-> When someone needs blood urgently, finding the right support should take as little time as possible.
+────────
 
-The application combines donor discovery, emergency blood requests, blood-group compatibility, donation eligibility screening, and hospital/blood-bank discovery into one interface.
+Problem Statement
 
-ResQ is currently a frontend prototype. Data is stored locally using browser `localStorage`, while the medical-location map uses public OpenStreetMap services.
+During a blood emergency, a person may need to perform several separate tasks:
 
----
+1. Find a compatible donor.
+2. Check whether a donor is currently available.
+3. Locate nearby hospitals or blood banks.
+4. Contact the relevant person or facility.
+5. Understand basic blood compatibility.
 
-## Key Features
+ResQ brings these workflows into a single web application and demonstrates how a simple information system can reduce the number of steps required to start an emergency blood search.
 
-### Emergency Blood Request
+────────
 
-The emergency workflow is designed to be shorter than the normal donor workflow.
+Solution
 
-Users:
+ResQ is a multi-page frontend application built with HTML, CSS, and JavaScript.
 
-1. Select the required blood group.
-2. Continue to the emergency details.
-3. Enter patient and hospital information.
-4. Submit the request.
-5. Receive matching donor information based on blood compatibility and city.
+The current prototype uses browser localStorage for persistence. This allows donor records, user accounts, and emergency requests to remain available after page refreshes on the same browser.
 
-Emergency requests are stored locally under:
+The application includes:
 
-```text
-resqEmergencyRequests
-```
+* User signup and login
+* Local session tracking
+* Account/profile management
+* Donor registration
+* Compatible donor search
+* Emergency blood request workflow
+* Blood compatibility checker
+* Basic donation eligibility checker
+* Dashboard statistics
+* Hospital and blood-bank discovery interface
+* Light/dark theme
+* Responsive sidebar navigation
 
-Each request contains:
+────────
 
-```text
+Core Features
+
+1. User Authentication Prototype
+
+Users can create an account using:
+
+* Name
+* Email
+* Phone number
+* City
+* Blood group
+* Role
+* Password
+
+The account is stored in:
+
+text
+resqUsers
+
+
+The currently logged-in user is stored separately in:
+
+text
+resqCurrentUser
+
+
+This allows the interface to remember the current user and display account-specific information.
+
+> Important: This is prototype authentication using browser storage. Passwords are not production-secure and a real application would use a backend, password hashing, and secure session/token management.
+
+────────
+
+2. Account Management
+
+After login, the user can access an account page to:
+
+* View profile information
+* Edit name
+* Edit email
+* Edit phone number
+* Edit city
+* Edit blood group
+* Change role
+* Change password
+
+When a user’s donor-related information changes, the application synchronizes the corresponding donor record.
+
+────────
+
+3. Blood Donor Registration
+
+A donor can register with:
+
+* Name
+* Blood group
+* Phone number
+* City
+* Age
+* Availability
+
+The application validates important fields before saving the donor.
+
+Donor records are stored in:
+
+text
+resqDonors
+
+
+Basic validation includes:
+
+* Name validation
+* Blood-group selection
+* 10-digit phone validation
+* City validation
+* Age range validation
+* Availability selection
+
+────────
+
+4. Find Compatible Donors
+
+Users search using:
+
+* Required recipient blood group
+* City
+
+The search does not simply look for an identical blood group. It uses a compatibility mapping to determine whether a donor group can donate to the selected recipient group.
+
+The results are filtered by:
+
+text
+Compatible blood group
+AND
+Matching city
+AND
+Availability = Available
+
+
+The user can then open donor contact information.
+
+────────
+
+5. Emergency Blood Request
+
+The emergency workflow is designed to be shorter and more direct.
+
+Flow:
+
+text
+Select Required Blood Group
+        ↓
+Enter Patient and Hospital Details
+        ↓
+Validate Information
+        ↓
+Save Emergency Request
+        ↓
+Redirect to Compatible Donor Search
+
+
+Each emergency request contains:
+
+text
 id
 patientName
 bloodGroup
@@ -55,212 +198,357 @@ units
 urgency
 status
 createdAt
-```
 
----
 
-### Blood Donor Registration
+Requests are stored under:
 
-Donors can register with:
+text
+resqEmergencyRequests
 
-- Full name
-- Blood group
-- Phone number
-- City
-- Age
-- Availability
 
-Basic validation is performed before the donor is stored.
+The emergency request is then passed to the donor search page using URL query parameters.
 
-Donor records are stored under:
+Example concept:
 
-```text
-resqDonors
-```
+text
+find-blood.html?blood=O%2B&city=Delhi&emergency=true
 
----
 
-### Find Blood
+The donor search page reads these parameters and automatically performs the search.
 
-The donor-search page allows users to search by:
+────────
 
-- Blood group
-- City
+6. Blood Compatibility Checker
 
-Only donors marked as available are returned.
+The compatibility checker uses a JavaScript object that maps each recipient blood group to the donor blood groups accepted by that recipient.
 
-The current matching system also considers blood-group compatibility rather than simply requiring an exact blood-group match.
+Example:
 
----
+javascript
+"O-": ["O-"]
 
-### Hospital & Blood Bank Map
+"A-": ["A-", "O-"]
 
-ResQ contains an embedded interactive medical-location map.
+"AB+": [
+    "A+",
+    "A-",
+    "B+",
+    "B-",
+    "AB+",
+    "AB-",
+    "O+",
+    "O-"
+]
 
-It does not require a Google Maps API key.
 
-The map uses:
+The application checks whether the selected donor group exists in the compatible list for the recipient.
 
-- Leaflet.js
-- OpenStreetMap
-- Nominatim
-- Overpass API
+Conceptually:
 
-The search flow is:
+text
+recipient
+   ↓
+Find allowed donor groups
+   ↓
+Check whether selected donor is included
+   ↓
+Compatible / Not Compatible
 
-```text
-City
+
+This feature is for educational demonstration and does not replace clinical blood-bank verification.
+
+────────
+
+7. Donation Eligibility Checker
+
+The eligibility checker performs a basic screening based on:
+
+* Age
+* Weight
+* Previous donation timing
+* Self-reported health status
+
+The current project checks:
+
+text
+Age: 18–65
+Weight: at least 50 kg
+Donation period: eligible/never
+Health status: healthy
+
+
+The output explains whether the user passes the application’s basic screening criteria.
+
+This is not a medical diagnosis or official donor eligibility decision.
+
+────────
+
+8. Dashboard
+
+The dashboard reads locally stored application data and calculates:
+
+* Total donors
+* Available donors
+* Total emergency requests
+* Critical emergency requests
+* Recent donors
+* Recent emergency requests
+
+The dashboard is generated dynamically from localStorage.
+
+────────
+
+9. Hospital and Blood-Bank Discovery
+
+The hospital page is designed around public mapping services rather than a paid Google Maps API.
+
+The intended data flow is:
+
+text
+User enters city
+        ↓
+Geocode city
+        ↓
+Get latitude and longitude
+        ↓
+Query mapped medical facilities
+        ↓
+Display facilities on interactive map
+
+
+The project uses:
+
+* Leaflet.js
+* OpenStreetMap
+* Nominatim
+* Overpass API
+
+The application distinguishes between medical facilities such as:
+
+* Hospitals
+* Clinics
+* Blood banks
+* Blood centres
+
+Facility locations do not represent guaranteed real-time blood inventory.
+
+────────
+
+Application Architecture
+
+ResQ follows a simple frontend architecture:
+
+text
+HTML
   ↓
-Nominatim
+Page structure and forms
+
+CSS
   ↓
-City coordinates
+Shared visual design and responsive layout
+
+JavaScript
   ↓
-Overpass
+Page behaviour, validation, storage and application logic
+
+localStorage
   ↓
-OpenStreetMap medical facilities
-  ↓
-Leaflet map
-```
+Persistent browser-side prototype data
 
-The application can search for mapped:
 
-- Hospitals
-- Clinics
-- Blood banks
-- Blood centres
+Shared Logic
 
-Users can:
+js/app.js is responsible for global interface behaviour such as:
 
-- Search an Indian city
-- Filter hospitals
-- Filter blood banks
-- View facilities on the map
-- Open facility information
-- View available address/phone information
-- Open directions
+* Sidebar behaviour
+* Theme switching
+* Language selection logic
+* Account button behaviour
+* Current-user detection
+* Logout
+* Navigation state
 
-The map represents facility locations. It does not guarantee real-time blood inventory.
+Feature-specific logic is kept in separate JavaScript files.
 
----
+────────
 
-### Blood Compatibility Checker
+Application Flow
 
-The compatibility page lets the user select:
+Standard User Flow
 
-- Recipient blood group
-- Donor blood group
-
-The application then determines whether the donor group is compatible with the selected recipient according to the compatibility rules implemented in the project.
-
----
-
-### Donation Eligibility Checker
-
-The eligibility page performs a basic project-level screening using:
-
-- Age
-- Weight
-- Time since previous donation
-- Current health status
-
-This is an educational screening feature and is not a substitute for professional donor assessment.
-
----
-
-### Dashboard
-
-The dashboard provides a quick overview of locally stored ResQ data.
-
-It displays:
-
-- Total donors
-- Available donors
-- Total emergency requests
-- Critical requests
-- Recent donors
-- Recent emergency requests
-
----
-
-### Navigation & UI
-
-The application currently includes:
-
-- ResQ sidebar navigation
-- Collapsible navigation
-- Emergency shortcut
-- Light/dark theme support
-- English/Hindi/Punjabi language selector
-- Account/login/signup UI
-- ResQ branding and custom logo
-
----
-
-## Application Flow
-
-### Normal User Flow
-
-```text
+text
 Home
-  │
-  ├── Find Blood
-  │      └── Search available donors
-  │
-  ├── Hospitals
-  │      └── Search hospitals & blood banks
-  │
-  ├── Eligibility
-  │      └── Basic donation screening
-  │
-  ├── Compatibility
-  │      └── Check donor/recipient compatibility
-  │
-  └── Emergency
-         └── Request blood immediately
-```
+ │
+ ├── Sign Up / Login
+ │       ↓
+ │     Dashboard
+ │       ↓
+ │     Account Management
+ │
+ ├── Become a Donor
+ │       ↓
+ │     Save Donor Record
+ │
+ ├── Find Blood
+ │       ↓
+ │     Search Compatible Available Donors
+ │
+ ├── Eligibility
+ │       ↓
+ │     Basic Screening Result
+ │
+ ├── Compatibility
+ │       ↓
+ │     Compatible / Not Compatible
+ │
+ └── Emergency
+         ↓
+      Create Emergency Request
+         ↓
+      Redirect to Donor Search
 
-### Emergency Flow
 
-```text
-I Need Blood Now
-        ↓
-Select Blood Group
-        ↓
-Continue
-        ↓
-Patient + Location + Hospital Details
-        ↓
-Submit Request
-        ↓
-Save Emergency Request
-        ↓
-Find Compatible Donors
-        ↓
-Hospital / Blood Bank Support
-```
+Data Flow
 
----
+text
+Signup
+   ↓
+resqUsers
+   ↓
+resqCurrentUser
 
-## Tech Stack
+Donor Registration
+   ↓
+resqDonors
+   ↓
+Find Blood + Dashboard
 
-| Area | Technology |
-|---|---|
-| Structure | HTML5 |
-| Styling | CSS3 |
-| Application logic | JavaScript |
-| Icons | Lucide |
-| Map | Leaflet.js |
-| Map data | OpenStreetMap |
-| City search | Nominatim |
-| POI search | Overpass API |
-| Local persistence | Browser localStorage |
-| Fonts | Google Fonts |
+Emergency Request
+   ↓
+resqEmergencyRequests
+   ↓
+Dashboard + Emergency Donor Search
 
----
 
-## Project Structure
+────────
 
-```text
+Data Model and Storage
+
+Users
+
+Storage key:
+
+text
+resqUsers
+
+
+Typical structure:
+
+javascript
+{
+    id,
+    name,
+    email,
+    password,
+    phone,
+    city,
+    bloodGroup,
+    role,
+    available
+}
+
+
+Current User
+
+Storage key:
+
+text
+resqCurrentUser
+
+
+This stores the currently active user’s profile information.
+
+Donors
+
+Storage key:
+
+text
+resqDonors
+
+
+Typical donor structure:
+
+javascript
+{
+    id,
+    name,
+    bloodGroup,
+    phone,
+    city,
+    age,
+    availability,
+    createdAt
+}
+
+
+Emergency Requests
+
+Storage key:
+
+text
+resqEmergencyRequests
+
+
+Typical structure:
+
+javascript
+{
+    id,
+    patientName,
+    bloodGroup,
+    city,
+    hospital,
+    contact,
+    units,
+    urgency,
+    status,
+    createdAt
+}
+
+
+────────
+
+Technology Stack
+
+|Area             |Technology            |
+|-----------------|----------------------|
+|Structure        |HTML5                 |
+|Styling          |CSS3                  |
+|Application Logic|Vanilla JavaScript    |
+|Icons            |Lucide                |
+|Maps             |Leaflet.js            |
+|Map Data         |OpenStreetMap         |
+|Geocoding        |Nominatim             |
+|Facility Search  |Overpass API          |
+|Persistence      |Browser localStorage|
+|Fonts            |Google Fonts          |
+
+Why Vanilla JavaScript?
+
+This project does not require a framework for its current scope. Vanilla JavaScript keeps the project:
+
+* Easy to run
+* Dependency-light
+* Suitable for a static frontend prototype
+* Simple to demonstrate during a viva
+
+For a larger production application, the frontend could be migrated to React or another component-based framework.
+
+────────
+
+Project Structure
+
+text
 ResQ/
 │
 ├── assets/
@@ -271,272 +559,327 @@ ResQ/
 │
 ├── js/
 │   ├── app.js
+│   ├── account.js
+│   ├── auth.js
 │   ├── compatibility.js
 │   ├── dashboard.js
 │   ├── donor.js
 │   ├── eligibility.js
 │   ├── emergency.js
+│   ├── find-blood.js
 │   └── hospitals.js
 │
-├── index.html
+├── documents/
+│   └── project_analysis.md
+│
+├── account.html
+├── compatibility.html
+├── dashboard.html
+├── donor.html
+├── eligibility.html
+├── emergency.html
 ├── find-blood.html
 ├── hospitals.html
-├── dashboard.html
-├── eligibility.html
-├── compatibility.html
-├── emergency.html
+├── index.html
 ├── login.html
-├── signup.html
 ├── resources.html
-│
+├── signup.html
 └── README.md
-```
 
----
 
-## Page Responsibilities
+────────
 
-| File | Responsibility |
-|---|---|
-| `index.html` | Main landing page |
-| `find-blood.html` | Donor search and contact flow |
-| `hospitals.html` | Hospital and blood-bank map |
-| `dashboard.html` | Donor/request statistics |
-| `eligibility.html` | Donation eligibility checker |
-| `compatibility.html` | Blood compatibility checker |
-| `emergency.html` | Emergency blood-request flow |
-| `login.html` | Login interface |
-| `signup.html` | Signup interface |
-| `resources.html` | Blood donation resources |
+Page Responsibilities
 
----
+|Page                |Purpose                                 |
+|--------------------|----------------------------------------|
+|index.html        |Landing page and application entry point|
+|signup.html       |User account creation                   |
+|login.html        |User login                              |
+|account.html      |View and edit user profile and password |
+|donor.html        |Donor registration                      |
+|find-blood.html   |Compatible donor search                 |
+|emergency.html    |Emergency blood request                 |
+|dashboard.html    |Local data overview                     |
+|eligibility.html  |Basic donation screening                |
+|compatibility.html|Blood compatibility check               |
+|hospitals.html    |Medical facility discovery              |
+|resources.html    |Educational resources                   |
 
-## JavaScript Responsibilities
+────────
 
-| File | Responsibility |
-|---|---|
-| `app.js` | Global UI behaviour such as navigation/theme/language |
-| `donor.js` | Donor registration and validation |
-| `find-blood.js` | Donor search and contact modal |
-| `hospitals.js` | City search, Overpass queries and map rendering |
-| `emergency.js` | Emergency blood request workflow |
-| `eligibility.js` | Eligibility calculations |
-| `compatibility.js` | Blood compatibility logic |
-| `dashboard.js` | Dashboard statistics and recent records |
+JavaScript Responsibilities
 
----
+|File              |Responsibility                                             |
+|------------------|-----------------------------------------------------------|
+|app.js          |Shared navigation, theme, account and UI logic             |
+|auth.js         |Signup, login and current-user storage                     |
+|account.js      |Profile updates, password changes and donor synchronization|
+|donor.js        |Donor registration and validation                          |
+|find-blood.js   |Compatible donor filtering and donor contact flow          |
+|emergency.js    |Emergency request workflow and redirect                    |
+|dashboard.js    |Dashboard statistics and recent records                    |
+|eligibility.js  |Basic eligibility rules                                    |
+|compatibility.js|Blood compatibility rules                                  |
+|hospitals.js    |Hospital/blood-bank discovery and map behaviour            |
 
-## Data Storage
+────────
 
-The current prototype does not use a backend database.
+How to Run
 
-### Donors
+1. Clone the repository
 
-```text
-localStorage["resqDonors"]
-```
-
-### Emergency Requests
-
-```text
-localStorage["resqEmergencyRequests"]
-```
-
-This makes the current prototype easy to run without server configuration.
-
-A production version should move this data to a secure backend.
-
----
-
-## Running ResQ
-
-### 1. Clone the repository
-
-```bash
+bash
 git clone <repository-url>
+
+
+2. Open the project
+
+bash
 cd ResQ
-```
 
-### 2. Open in VS Code
 
-Open the project folder in VS Code.
+Open the folder in VS Code.
 
-### 3. Run with a local server
+3. Run using a local server
 
-Use VS Code Live Server or another local HTTP server.
+Use the Live Server extension in VS Code.
 
 For example:
 
-```text
-index.html
-→ Open with Live Server
-```
+text
+Right-click index.html
+        ↓
+Open with Live Server
 
-The application should then open in the browser.
 
----
+Using a local server is recommended because external APIs and browser features can behave differently when files are opened directly with file://.
 
-## Map Setup
+────────
 
-No Google Maps API key is required.
+Important Prototype Limitations
 
-The hospital page loads Leaflet and queries public OpenStreetMap services.
+ResQ is a frontend prototype, not a production medical system.
 
-Example:
+1. No Backend Database
 
-```text
-Search: Ambala
-```
+Data is stored only in the browser’s localStorage.
 
-The application:
+This means:
 
-1. Finds Ambala using Nominatim.
-2. Gets its coordinates.
-3. Sends a query to Overpass.
-4. Retrieves mapped hospitals and blood banks around the city.
-5. Displays them on the embedded Leaflet map.
+* Data is browser-specific.
+* Data is not shared between users/devices.
+* Clearing browser storage removes the prototype data.
 
-Because OpenStreetMap is community-maintained, coverage can vary between cities.
+2. Authentication Is Demonstrational
 
----
+The project currently does not provide:
 
-## Medical Disclaimer
+* Server-side authentication
+* Password hashing
+* JWT/session management
+* Access control middleware
+* Account recovery
 
-ResQ is a software project/prototype.
+A production version should use a secure backend and hashed passwords.
 
-The eligibility checker and compatibility checker are intended for educational demonstration only.
+3. No Guaranteed Real-Time Blood Inventory
 
-Actual:
+The project can locate medical facilities, but it does not know the current stock of each blood group.
 
-- Blood transfusion compatibility
-- Donor eligibility
-- Blood availability
-- Emergency treatment
-- Medical decisions
+Actual blood availability must be verified with an authorized blood bank or official service.
 
-must be confirmed by qualified healthcare professionals and authorized medical facilities.
+4. No Real-Time Donor Notifications
 
----
+When an emergency request is created, matching donors are filtered and displayed, but the application does not send SMS, push notifications, WhatsApp messages, or emails.
 
-## Current Limitations
+5. Medical Features Are Educational
 
-The current version is intentionally frontend-first.
+The compatibility and eligibility tools are simplified project features.
 
-### No backend
+Actual medical decisions must be confirmed by qualified healthcare professionals and authorized blood banks.
 
-Data is currently stored in browser `localStorage`.
+────────
 
-### No real authentication
+Future Improvements
 
-Login and signup are currently UI flows and are not connected to a production authentication system.
+Backend
 
-### No guaranteed live blood inventory
+* REST API
+* Database
+* User authentication
+* Password hashing
+* Role-based access control
 
-The map finds medical facilities but does not know whether a facility currently has a particular blood group available.
+Real-Time Features
 
-### OpenStreetMap coverage
+* Donor notifications
+* Emergency alerts
+* Availability updates
+* Live request status
 
-A facility may not appear if it has not been mapped or tagged correctly in OpenStreetMap.
+Medical and Data Integration
 
-### No real-time notifications
+* Verified blood-bank data
+* Official blood inventory integration
+* Hospital verification
+* Better donor eligibility logic
 
-Donors are not currently notified when a matching emergency request is created.
+User Experience
 
----
+* More complete multilingual support
+* Location detection
+* Better mobile workflows
+* Request tracking
+* Donor availability toggle
 
-## Roadmap
+────────
 
-### Completed
+Viva Quick Revision
 
-- [x] ResQ landing page
-- [x] Sidebar navigation
-- [x] Donor registration
-- [x] Donor search
-- [x] Emergency request workflow
-- [x] Blood compatibility checker
-- [x] Donation eligibility checker
-- [x] Dashboard
-- [x] Embedded medical map
-- [x] Indian city search
-- [x] Hospital discovery
-- [x] Blood-bank discovery
-- [x] Light/dark theme
-- [x] Language selector
+What is ResQ?
 
-### Next
+ResQ is a frontend-first emergency blood support and donor discovery platform. It combines donor registration, compatible donor search, emergency requests, blood compatibility, basic eligibility screening, account management, and dashboard monitoring.
 
-- [ ] Emergency popup from homepage
-- [ ] Blood donation news section
-- [ ] Meet Our Doctors section
-- [ ] Better emergency donor matching
-- [ ] Improved mobile sidebar
-- [ ] Verified hospital/blood-bank information
-- [ ] Improved blood-bank availability flow
+────────
 
-### Production Direction
+Why did we build it?
 
-- [ ] Backend API
-- [ ] Database
-- [ ] Secure authentication
-- [ ] Real-time donor availability
-- [ ] Real-time blood inventory
-- [ ] Donor notifications
-- [ ] Emergency request matching
-- [ ] Hospital/blood-bank verification
-- [ ] Production security and privacy controls
+The idea is to reduce the number of separate steps a person performs when searching for blood support during an emergency.
 
----
+Instead of using unrelated pages or services for donors, compatibility, requests, and facilities, ResQ provides a single workflow.
 
-## Team Development Notes
+────────
 
-Before modifying a feature, check which JavaScript file owns that feature.
+What is the architecture?
 
-Avoid putting feature-specific logic into `app.js`.
+It is a multi-page frontend application.
 
-Keep:
+text
+HTML + CSS + JavaScript
+          ↓
+      localStorage
 
-```text
-Global UI
-    → app.js
 
-Donors
-    → donor.js
+External mapping services are used for medical facility discovery.
 
-Donor search
-    → find-blood.js
+────────
 
-Hospitals / map
-    → hospitals.js
+Why localStorage?
 
-Emergency
-    → emergency.js
+Because this version is a frontend prototype and does not have a backend database.
 
-Eligibility
-    → eligibility.js
+It provides:
 
-Compatibility
-    → compatibility.js
+* Persistence after refresh
+* No server setup
+* Easy demonstration
 
-Dashboard
-    → dashboard.js
-```
+But it is not suitable for production because the data is local to one browser and is not secure.
 
-When changing the HTML structure, check the corresponding JavaScript selectors before testing.
+────────
 
----
+How does login work?
 
-## Project Status
+During signup, a user object is saved in resqUsers.
 
-**Status:** Active frontend prototype
+During login, the entered email and password are checked against stored users.
 
-**Architecture:** Multi-page frontend application
+The selected user is then saved as resqCurrentUser, which acts as the prototype’s current session.
 
-**Backend:** Not implemented
+────────
 
-**Database:** Browser localStorage
+How does donor search work?
 
-**Maps:** Leaflet + OpenStreetMap + Nominatim + Overpass
+The user enters:
 
-**Authentication:** Prototype UI
+* Required recipient blood group
+* City
 
-**API key required for map:** No
+The application filters the donor list using:
+
+text
+Blood compatibility
+AND
+City match
+AND
+Available status
+
+
+────────
+
+How does blood compatibility work?
+
+A JavaScript mapping defines which donor groups are compatible with each recipient group.
+
+The selected donor group is checked against the compatible donor list for the recipient.
+
+────────
+
+How does the emergency flow work?
+
+text
+Select blood group
+        ↓
+Enter emergency details
+        ↓
+Validate
+        ↓
+Store request
+        ↓
+Pass blood group and city through URL parameters
+        ↓
+Open Find Blood
+        ↓
+Automatically search compatible available donors
+
+
+────────
+
+How does the dashboard work?
+
+The dashboard reads donor and emergency-request arrays from localStorage, then calculates counts using array operations such as:
+
+* filter()
+* slice()
+* reverse()
+
+It then dynamically creates recent donor and request rows.
+
+────────
+
+Why use Leaflet and OpenStreetMap?
+
+They allow the project to demonstrate an interactive map without requiring a paid Google Maps API key.
+
+The intended workflow uses geocoding to convert a city into coordinates and then queries mapped medical facilities around that location.
+
+────────
+
+What would you change for production?
+
+The first major change would be moving from browser storage to:
+
+text
+Frontend
+    ↓
+Secure Backend API
+    ↓
+Database
+
+
+I would also add:
+
+* Hashed passwords
+* Secure authentication
+* Real donor verification
+* Notifications
+* Verified hospital data
+* Official blood inventory integration
+* Proper access control
+
+────────
+
+Most Important Honest Statement
+
+ResQ is currently a functional frontend prototype. Its core workflows demonstrate how donor information, emergency requests, compatibility logic, and browser-side persistence can be connected. It is not presented as a production-ready medical platform, and real medical decisions or blood availability must always be verified through authorized healthcare and blood-bank systems.
