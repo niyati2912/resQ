@@ -1,89 +1,46 @@
 const bloodSearchForm =
-    document.getElementById(
-        "bloodSearchForm"
-    );
+    document.getElementById("bloodSearchForm");
 
 const searchBloodGroup =
-    document.getElementById(
-        "searchBloodGroup"
-    );
+    document.getElementById("searchBloodGroup");
 
 const searchCity =
-    document.getElementById(
-        "searchCity"
-    );
+    document.getElementById("searchCity");
 
 const donorResults =
-    document.getElementById(
-        "donorResults"
-    );
+    document.getElementById("donorResults");
 
 const searchMessage =
-    document.getElementById(
-        "searchMessage"
-    );
+    document.getElementById("searchMessage");
 
 const contactModal =
-    document.getElementById(
-        "contactModal"
-    );
+    document.getElementById("contactModal");
 
 const closeModal =
-    document.getElementById(
-        "closeModal"
-    );
+    document.getElementById("closeModal");
 
 const modalDonorName =
-    document.getElementById(
-        "modalDonorName"
-    );
+    document.getElementById("modalDonorName");
 
 const modalBloodGroup =
-    document.getElementById(
-        "modalBloodGroup"
-    );
+    document.getElementById("modalBloodGroup");
 
 const modalCity =
-    document.getElementById(
-        "modalCity"
-    );
+    document.getElementById("modalCity");
 
 const modalPhone =
-    document.getElementById(
-        "modalPhone"
-    );
+    document.getElementById("modalPhone");
 
 const callDonor =
-    document.getElementById(
-        "callDonor"
-    );
+    document.getElementById("callDonor");
 
 
 const bloodCompatibility = {
+    "A+": ["A+", "A-", "O+", "O-"],
+    "A-": ["A-", "O-"],
 
-    "A+": [
-        "A+",
-        "A-",
-        "O+",
-        "O-"
-    ],
-
-    "A-": [
-        "A-",
-        "O-"
-    ],
-
-    "B+": [
-        "B+",
-        "B-",
-        "O+",
-        "O-"
-    ],
-
-    "B-": [
-        "B-",
-        "O-"
-    ],
+    "B+": ["B+", "B-", "O+", "O-"],
+    "B-": ["B-", "O-"],
 
     "AB+": [
         "A+",
@@ -103,49 +60,31 @@ const bloodCompatibility = {
         "O-"
     ],
 
-    "O+": [
-        "O+",
-        "O-"
-    ],
-
-    "O-": [
-        "O-"
-    ]
-
+    "O+": ["O+", "O-"],
+    "O-": ["O-"]
 };
 
 
 function getStorageData(key) {
-
     try {
-
-        const data =
-            localStorage.getItem(key);
+        const data = localStorage.getItem(key);
 
         return data
             ? JSON.parse(data)
             : [];
-
     } catch (error) {
-
         console.error(
             `Unable to read ${key}:`,
             error
         );
 
         return [];
-
     }
-
 }
 
 
 function getAllDonors() {
-
-    return getStorageData(
-        "resqDonors"
-    );
-
+    return getStorageData("resqDonors");
 }
 
 
@@ -153,17 +92,12 @@ function isCompatibleDonor(
     recipientBloodGroup,
     donorBloodGroup
 ) {
-
     const compatibleGroups =
-        bloodCompatibility[
-            recipientBloodGroup
-        ] || [];
-
+        bloodCompatibility[recipientBloodGroup] || [];
 
     return compatibleGroups.includes(
         donorBloodGroup
     );
-
 }
 
 
@@ -171,55 +105,39 @@ function searchDonors(
     selectedBloodGroup,
     enteredCity
 ) {
-
     const normalizedCity =
         enteredCity
             .trim()
             .toLowerCase();
 
+    const donors = getAllDonors();
 
-    const donors =
-        getAllDonors();
+    return donors.filter(donor => {
+        const donorCity =
+            (donor.city || "")
+                .trim()
+                .toLowerCase();
 
+        const isAvailable =
+            !donor.availability ||
+            donor.availability === "Available";
 
-    return donors.filter(
-        donor => {
-
-            const donorCity =
-                (donor.city || "")
-                    .toLowerCase();
-
-
-            return (
-
-                isCompatibleDonor(
-                    selectedBloodGroup,
-                    donor.bloodGroup
-                )
-
-                &&
-
-                donorCity.includes(
-                    normalizedCity
-                )
-
-                &&
-
-                donor.availability ===
-                "Available"
-
-            );
-
-        }
-    );
-
+        return (
+            isCompatibleDonor(
+                selectedBloodGroup,
+                donor.bloodGroup
+            ) &&
+            donorCity.includes(normalizedCity) &&
+            isAvailable
+        );
+    });
 }
 
 
 function clearResults() {
-
-    donorResults.innerHTML = "";
-
+    if (donorResults) {
+        donorResults.innerHTML = "";
+    }
 }
 
 
@@ -228,14 +146,11 @@ function displayDonors(
     selectedBloodGroup,
     enteredCity
 ) {
-
     clearResults();
 
+    if (!searchMessage) return;
 
-    if (
-        donors.length === 0
-    ) {
-
+    if (!donors.length) {
         searchMessage.textContent =
             `No compatible available donors found for ${selectedBloodGroup} in ${enteredCity}.`;
 
@@ -243,9 +158,7 @@ function displayDonors(
             "search-error";
 
         return;
-
     }
-
 
     searchMessage.textContent =
         `${donors.length} compatible donor(s) found for ${selectedBloodGroup} in ${enteredCity}.`;
@@ -254,222 +167,138 @@ function displayDonors(
         "search-success";
 
 
-    donors.forEach(
-        donor => {
+    donors.forEach(donor => {
+        const donorCard =
+            document.createElement("article");
 
-            const donorCard =
-                document.createElement(
-                    "article"
-                );
-
-
-            donorCard.className =
-                "donor-card";
+        donorCard.className =
+            "donor-card";
 
 
-            const top =
-                document.createElement(
-                    "div"
-                );
+        donorCard.innerHTML = `
+            <div class="donor-card-top">
+                <div class="donor-avatar">
+                    🩸
+                </div>
 
-            top.className =
-                "donor-card-top";
+                <div>
+                    <h2>${donor.name || "Donor"}</h2>
 
+                    <p>
+                        📍 ${donor.city || "City not listed"}
+                    </p>
+                </div>
 
-            const avatar =
-                document.createElement(
-                    "div"
-                );
+                <span class="blood-group-tag">
+                    ${donor.bloodGroup || "N/A"}
+                </span>
+            </div>
 
-            avatar.className =
-                "donor-avatar";
+            <div class="donor-card-info">
+                <p>
+                    📞 ${donor.phone || "Phone not listed"}
+                </p>
 
-            avatar.textContent =
-                "🩸";
+                <p>
+                    🟢 ${
+                        donor.availability || "Available"
+                    }
+                </p>
+            </div>
 
-
-            const details =
-                document.createElement(
-                    "div"
-                );
-
-
-            const name =
-                document.createElement(
-                    "h2"
-                );
-
-            name.textContent =
-                donor.name;
-
-
-            const city =
-                document.createElement(
-                    "p"
-                );
-
-            city.textContent =
-                `📍 ${donor.city}`;
+            <button
+                type="button"
+                class="contact-donor-btn"
+            >
+                Contact Donor
+            </button>
+        `;
 
 
-            details.appendChild(name);
-            details.appendChild(city);
-
-
-            const bloodTag =
-                document.createElement(
-                    "span"
-                );
-
-            bloodTag.className =
-                "blood-group-tag";
-
-            bloodTag.textContent =
-                donor.bloodGroup;
-
-
-            top.appendChild(avatar);
-            top.appendChild(details);
-            top.appendChild(bloodTag);
-
-
-            const info =
-                document.createElement(
-                    "div"
-                );
-
-            info.className =
-                "donor-card-info";
-
-
-            const phone =
-                document.createElement(
-                    "p"
-                );
-
-            phone.textContent =
-                `📞 ${donor.phone}`;
-
-
-            const availability =
-                document.createElement(
-                    "p"
-                );
-
-            availability.textContent =
-                `🟢 ${donor.availability}`;
-
-
-            info.appendChild(phone);
-            info.appendChild(availability);
-
-
-            const contactButton =
-                document.createElement(
-                    "button"
-                );
-
-            contactButton.type =
-                "button";
-
-            contactButton.className =
-                "contact-donor-btn";
-
-            contactButton.textContent =
-                "Contact Donor";
-
-
-            contactButton.addEventListener(
-                "click",
-                function () {
-
-                    openContactModal(
-                        donor
-                    );
-
-                }
+        const contactButton =
+            donorCard.querySelector(
+                ".contact-donor-btn"
             );
 
+        contactButton.addEventListener(
+            "click",
+            () => {
+                openContactModal(donor);
+            }
+        );
 
-            donorCard.appendChild(top);
-            donorCard.appendChild(info);
-            donorCard.appendChild(
-                contactButton
-            );
-
-
-            donorResults.appendChild(
-                donorCard
-            );
-
-        }
-    );
-
+        donorResults?.appendChild(
+            donorCard
+        );
+    });
 }
 
 
-function openContactModal(
-    donor
-) {
+function openContactModal(donor) {
+    if (!contactModal) return;
 
-    if (
-        !contactModal
-    ) {
-        return;
+    if (modalDonorName) {
+        modalDonorName.textContent =
+            donor.name || "Donor";
     }
 
+    if (modalBloodGroup) {
+        modalBloodGroup.textContent =
+            donor.bloodGroup || "N/A";
+    }
 
-    modalDonorName.textContent =
-        donor.name;
+    if (modalCity) {
+        modalCity.textContent =
+            donor.city || "Not listed";
+    }
 
-    modalBloodGroup.textContent =
-        donor.bloodGroup;
+    if (modalPhone) {
+        modalPhone.textContent =
+            donor.phone || "Not listed";
+    }
 
-    modalCity.textContent =
-        donor.city;
+    if (callDonor) {
+        const phone =
+            String(donor.phone || "")
+                .replace(/[^\d+]/g, "");
 
-    modalPhone.textContent =
-        donor.phone;
+        callDonor.href =
+            phone
+                ? `tel:${phone}`
+                : "#";
+    }
+
+    contactModal.classList.add("show");
+}
 
 
-    callDonor.href =
-        `tel:${donor.phone}`;
-
-
-    contactModal.classList.add(
-        "show-modal"
+function closeContactModal() {
+    contactModal?.classList.remove(
+        "show"
     );
-
 }
 
 
 function performSearch() {
-
     const selectedBloodGroup =
-        searchBloodGroup.value;
-
+        searchBloodGroup?.value;
 
     const enteredCity =
-        searchCity.value.trim();
+        searchCity?.value.trim();
 
+    if (!selectedBloodGroup || !enteredCity) {
+        if (searchMessage) {
+            searchMessage.textContent =
+                "Please select a blood group and enter a city.";
 
-    if (
-        !selectedBloodGroup ||
-        !enteredCity
-    ) {
-
-        searchMessage.textContent =
-            "Please select a blood group and enter a city.";
-
-        searchMessage.className =
-            "search-error";
+            searchMessage.className =
+                "search-error";
+        }
 
         clearResults();
 
         return;
-
     }
-
 
     const matchingDonors =
         searchDonors(
@@ -477,78 +306,61 @@ function performSearch() {
             enteredCity
         );
 
-
     displayDonors(
         matchingDonors,
         selectedBloodGroup,
         enteredCity
     );
-
 }
 
 
 if (bloodSearchForm) {
-
     bloodSearchForm.addEventListener(
         "submit",
-        function (event) {
-
+        event => {
             event.preventDefault();
 
             performSearch();
-
         }
     );
-
 }
 
 
 if (closeModal) {
-
     closeModal.addEventListener(
         "click",
-        function () {
-
-            contactModal.classList.remove(
-                "show-modal"
-            );
-
-        }
+        closeContactModal
     );
-
 }
 
 
 if (contactModal) {
-
     contactModal.addEventListener(
         "click",
-        function (event) {
-
-            if (
-                event.target ===
-                contactModal
-            ) {
-
-                contactModal.classList.remove(
-                    "show-modal"
-                );
-
+        event => {
+            if (event.target === contactModal) {
+                closeContactModal();
             }
-
         }
     );
-
 }
 
 
-function loadEmergencySearch() {
+document.addEventListener(
+    "keydown",
+    event => {
+        if (event.key === "Escape") {
+            closeContactModal();
+        }
+    }
+);
 
+
+function loadEmergencySearch() {
     const params =
         new URLSearchParams(
             window.location.search
         );
-
 
     const blood =
         params.get("blood");
@@ -557,38 +369,29 @@ function loadEmergencySearch() {
         params.get("city");
 
     const isEmergency =
-        params.get("emergency") ===
-        "true";
+        params.get("emergency") === "true";
 
-
-    if (
-        !blood ||
-        !city
-    ) {
+    if (!blood || !city) {
         return;
     }
 
+    if (searchBloodGroup) {
+        searchBloodGroup.value = blood;
+    }
 
-    searchBloodGroup.value =
-        blood;
-
-    searchCity.value =
-        city;
-
+    if (searchCity) {
+        searchCity.value = city;
+    }
 
     performSearch();
 
-
-    if (isEmergency) {
-
+    if (isEmergency && searchMessage) {
         searchMessage.textContent =
-            `Emergency search: compatible donors for ${blood} in ${city}.`;
+            `Emergency search: compatible available donors for ${blood} in ${city}.`;
 
         searchMessage.className =
             "search-success";
-
     }
-
 }
 
 

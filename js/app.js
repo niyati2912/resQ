@@ -1,756 +1,338 @@
-const sidebar =
-    document.getElementById(
-        "sidebar"
-    );
-
-const menuBtn =
-    document.getElementById(
-        "menuBtn"
-    );
-
-const collapseBtn =
-    document.getElementById(
-        "collapseBtn"
-    );
-
-const themeBtn =
-    document.getElementById(
-        "themeBtn"
-    );
-
-const language =
-    document.getElementById(
-        "language"
-    );
-
-
-/* =========================================
-   ICONS
-========================================= */
+const sidebar = document.getElementById("sidebar");
+const menuBtn = document.getElementById("menuBtn");
+const collapseBtn = document.getElementById("collapseBtn");
+const themeBtn = document.getElementById("themeBtn");
+const language = document.getElementById("language");
 
 function icons() {
-
-    if (window.lucide) {
-
-        lucide.createIcons();
-
-    }
-
+    if (window.lucide) lucide.createIcons();
 }
 
-
-/* =========================================
-   SIDEBAR
-========================================= */
+function getCurrentUser() {
+    try {
+        const raw = localStorage.getItem("resqCurrentUser");
+        return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+        console.error("Unable to read current user:", e);
+        return null;
+    }
+}
 
 if (menuBtn && sidebar) {
-
-    menuBtn.addEventListener(
-        "click",
-        function () {
-
-            sidebar.classList.toggle(
-                "open"
-            );
-
-        }
+    menuBtn.addEventListener("click", () =>
+        sidebar.classList.toggle("open")
     );
-
 }
-
 
 if (collapseBtn && sidebar) {
+    collapseBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("collapsed");
 
-    collapseBtn.addEventListener(
-        "click",
-        function () {
-
-            sidebar.classList.toggle(
-                "collapsed"
-            );
-
-            localStorage.setItem(
-                "resqSidebarCollapsed",
-                sidebar.classList.contains(
-                    "collapsed"
-                )
-            );
-
-        }
-    );
-
+        localStorage.setItem(
+            "resqSidebarCollapsed",
+            String(sidebar.classList.contains("collapsed"))
+        );
+    });
 }
-
 
 if (
     sidebar &&
-    localStorage.getItem(
-        "resqSidebarCollapsed"
-    ) === "true"
+    localStorage.getItem("resqSidebarCollapsed") === "true"
 ) {
-
-    sidebar.classList.add(
-        "collapsed"
-    );
-
+    sidebar.classList.add("collapsed");
 }
 
+function applyTheme(theme) {
+    const isDark = theme === "dark";
 
-/* =========================================
-   THEME
-========================================= */
-
-function applyTheme(
-    theme
-) {
+    document.body.classList.toggle("dark", isDark);
 
     document.documentElement.setAttribute(
         "data-theme",
-        theme
+        isDark ? "dark" : "light"
     );
-
 
     localStorage.setItem(
         "resqTheme",
-        theme
+        isDark ? "dark" : "light"
     );
 
-
-    if (!themeBtn) {
-        return;
-    }
-
-
-    themeBtn.innerHTML =
-        theme === "dark"
+    if (themeBtn) {
+        themeBtn.innerHTML = isDark
             ? '<i data-lucide="sun"></i>'
             : '<i data-lucide="moon"></i>';
 
-
-    icons();
-
+        icons();
+    }
 }
 
-
-const savedTheme =
-    localStorage.getItem(
-        "resqTheme"
-    );
-
-
-if (savedTheme) {
-
-    applyTheme(
-        savedTheme
-    );
-
-}
-
+applyTheme(
+    localStorage.getItem("resqTheme") === "dark"
+        ? "dark"
+        : "light"
+);
 
 if (themeBtn) {
-
-    themeBtn.addEventListener(
-        "click",
-        function () {
-
-            const currentTheme =
-                document.documentElement.getAttribute(
-                    "data-theme"
-                );
-
-
-            applyTheme(
-                currentTheme === "dark"
-                    ? "light"
-                    : "dark"
-            );
-
-        }
+    themeBtn.addEventListener("click", () =>
+        applyTheme(
+            document.body.classList.contains("dark")
+                ? "light"
+                : "dark"
+        )
     );
-
 }
 
-
-/* =========================================
-   LANGUAGE
-========================================= */
-
 const translations = {
-
     en: {
-
-        home:
-            "Home",
-
-        find:
-            "Find Blood",
-
-        hospitals:
-            "Hospitals",
-
-        dashboard:
-            "Dashboard",
-
-        eligibility:
-            "Eligibility",
-
-        compatibility:
-            "Compatibility",
-
-        resources:
-            "Resources",
-
-        account:
-            "Account"
-
+        home: "Home",
+        find: "Find Blood",
+        hospitals: "Hospitals",
+        dashboard: "Dashboard",
+        eligibility: "Eligibility",
+        compatibility: "Compatibility",
+        resources: "Resources",
+        account: "Account"
     },
 
     hi: {
-
-        home:
-            "होम",
-
-        find:
-            "रक्त खोजें",
-
-        hospitals:
-            "अस्पताल",
-
-        dashboard:
-            "डैशबोर्ड",
-
-        eligibility:
-            "पात्रता",
-
-        compatibility:
-            "अनुकूलता",
-
-        resources:
-            "संसाधन",
-
-        account:
-            "अकाउंट"
-
+        home: "होम",
+        find: "रक्त खोजें",
+        hospitals: "अस्पताल",
+        dashboard: "डैशबोर्ड",
+        eligibility: "पात्रता",
+        compatibility: "अनुकूलता",
+        resources: "संसाधन",
+        account: "अकाउंट"
     },
 
     pa: {
-
-        home:
-            "ਹੋਮ",
-
-        find:
-            "ਖੂਨ ਲੱਭੋ",
-
-        hospitals:
-            "ਹਸਪਤਾਲ",
-
-        dashboard:
-            "ਡੈਸ਼ਬੋਰਡ",
-
-        eligibility:
-            "ਯੋਗਤਾ",
-
-        compatibility:
-            "ਅਨੁਕੂਲਤਾ",
-
-        resources:
-            "ਸਰੋਤ",
-
-        account:
-            "ਅਕਾਊਂਟ"
-
+        home: "ਹੋਮ",
+        find: "ਖੂਨ ਲੱਭੋ",
+        hospitals: "ਹਸਪਤਾਲ",
+        dashboard: "ਡੈਸ਼ਬੋਰਡ",
+        eligibility: "ਯੋਗਤਾ",
+        compatibility: "ਅਨੁਕੂਲਤਾ",
+        resources: "ਸਰੋਤ",
+        account: "ਅਕਾਊਂਟ"
     }
-
 };
 
+function applyLanguage(lang) {
+    const dict = translations[lang];
 
-function applyLanguage(
-    lang
-) {
+    if (!dict) return;
 
-    const dictionary =
-        translations[lang];
+    document.querySelectorAll("[data-t]").forEach(el => {
+        if (dict[el.dataset.t]) {
+            el.textContent = dict[el.dataset.t];
+        }
+    });
 
+    localStorage.setItem("resqLanguage", lang);
+}
 
-    if (!dictionary) {
+const savedLanguage =
+    localStorage.getItem("resqLanguage") || "en";
+
+if (language) {
+    language.value =
+        translations[savedLanguage]
+            ? savedLanguage
+            : "en";
+
+    language.addEventListener("change", e =>
+        applyLanguage(e.target.value)
+    );
+}
+
+applyLanguage(
+    translations[savedLanguage]
+        ? savedLanguage
+        : "en"
+);
+
+function updateTopAccountButton() {
+    const user = getCurrentUser();
+
+    document.querySelectorAll(".account-btn").forEach(button => {
+        button.href = user
+            ? "account.html"
+            : "login.html";
+
+        const text = button.querySelector("span");
+
+        if (text) {
+            text.textContent = user
+                ? (user.name || "My Account")
+                : "Account";
+        }
+    });
+}
+
+function getOrCreateAccountSection() {
+    let section =
+        document.getElementById("accountSection");
+
+    if (section) return section;
+
+    const nav = document.querySelector(".nav");
+
+    if (!nav) return null;
+
+    const labels = [
+        ...nav.querySelectorAll(":scope > .nav-label")
+    ];
+
+    const label = labels.find(
+        el =>
+            el.textContent
+                .trim()
+                .toLowerCase() === "account"
+    );
+
+    if (!label) return null;
+
+    section = document.createElement("div");
+    section.id = "accountSection";
+
+    label.parentNode.insertBefore(section, label);
+    section.appendChild(label);
+
+    let next = section.nextElementSibling;
+
+    while (
+        next &&
+        next.classList.contains("nav-link")
+    ) {
+        const current = next;
+
+        next = next.nextElementSibling;
+
+        section.appendChild(current);
+    }
+
+    return section;
+}
+
+function closeMobileSidebar() {
+    if (sidebar) {
+        sidebar.classList.remove("open");
+    }
+}
+
+function updateActiveNavigation() {
+    const page =
+        location.pathname.split("/").pop() ||
+        "index.html";
+
+    document.querySelectorAll(".nav-link").forEach(link => {
+        const href =
+            (link.getAttribute("href") || "")
+                .split("?")[0];
+
+        link.classList.toggle(
+            "active",
+            href === page ||
+            link.dataset.page === page
+        );
+    });
+}
+
+function updateAccountSection() {
+    const section =
+        getOrCreateAccountSection();
+
+    if (!section) {
+        updateTopAccountButton();
         return;
     }
 
+    const user = getCurrentUser();
 
-    document
-        .querySelectorAll(
-            "[data-t]"
-        )
-        .forEach(
-            element => {
+    section.innerHTML =
+        '<div class="nav-label">Account</div>';
 
-                const key =
-                    element.dataset.t;
+    if (user) {
+        const account =
+            document.createElement("a");
 
+        account.className = "nav-link";
+        account.href = "account.html";
+        account.dataset.page = "account.html";
 
-                if (
-                    dictionary[key]
-                ) {
+        account.innerHTML =
+            '<i data-lucide="circle-user-round"></i>' +
+            '<span class="nav-text"></span>';
 
-                    element.textContent =
-                        dictionary[key];
+        account.querySelector(".nav-text").textContent =
+            user.name || "My Account";
 
-                }
-
-            }
+        account.addEventListener(
+            "click",
+            closeMobileSidebar
         );
 
+        const logout =
+            document.createElement("button");
 
-    localStorage.setItem(
-        "resqLanguage",
-        lang
-    );
+        logout.type = "button";
+        logout.className =
+            "nav-link logout-btn";
 
-}
+        logout.innerHTML =
+            '<i data-lucide="log-out"></i>' +
+            '<span class="nav-text">Logout</span>';
 
-
-const savedLanguage =
-    localStorage.getItem(
-        "resqLanguage"
-    );
-
-
-if (
-    savedLanguage &&
-    translations[savedLanguage]
-) {
-
-    if (language) {
-
-        language.value =
-            savedLanguage;
-
-    }
-
-
-    applyLanguage(
-        savedLanguage
-    );
-
-}
-
-
-if (language) {
-
-    language.addEventListener(
-        "change",
-        function (event) {
-
-            applyLanguage(
-                event.target.value
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================
-   GET CURRENT USER
-========================================= */
-
-function getCurrentUser() {
-
-    try {
-
-        const data =
-            localStorage.getItem(
+        logout.addEventListener("click", () => {
+            localStorage.removeItem(
                 "resqCurrentUser"
             );
 
+            location.href = "index.html";
+        });
 
-        return data
-            ? JSON.parse(data)
-            : null;
+        section.append(account, logout);
 
-    } catch (error) {
-
-        console.error(
-            "Unable to read current user:",
-            error
-        );
-
-        return null;
-
-    }
-
-}
-
-
-/* =========================================
-   UPDATE TOP ACCOUNT BUTTON
-========================================= */
-
-function updateTopAccountButton() {
-
-    const accountButtons =
-        document.querySelectorAll(
-            ".account-btn"
-        );
-
-
-    if (
-        !accountButtons.length
-    ) {
-        return;
-    }
-
-
-    const currentUser =
-        getCurrentUser();
-
-
-    accountButtons.forEach(
-        function (button) {
-
-            if (currentUser) {
-
-                button.href =
-                    "account.html";
-
-
-                const text =
-                    button.querySelector(
-                        "span"
-                    );
-
-
-                if (text) {
-
-                    text.textContent =
-                        currentUser.name ||
-                        "Account";
-
-                }
-
-            }
-
-            else {
-
-                button.href =
-                    "login.html";
-
-
-                const text =
-                    button.querySelector(
-                        "span"
-                    );
-
-
-                if (text) {
-
-                    text.textContent =
-                        "Account";
-
-                }
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =========================================
-   UPDATE SIDEBAR ACCOUNT SECTION
-========================================= */
-
-function updateAccountSection() {
-
-    const accountSection =
-        document.getElementById(
-            "accountSection"
-        );
-
-
-    if (!accountSection) {
-
-        updateTopAccountButton();
-
-        return;
-
-    }
-
-
-    const currentUser =
-        getCurrentUser();
-
-
-    accountSection.innerHTML =
-        "";
-
-
-    const label =
-        document.createElement(
-            "div"
-        );
-
-
-    label.className =
-        "nav-label";
-
-
-    label.textContent =
-        "Account";
-
-
-    accountSection.appendChild(
-        label
-    );
-
-
-    if (!currentUser) {
-
-        const loginLink =
-            document.createElement(
-                "a"
-            );
-
-
-        loginLink.className =
-            "nav-link";
-
-
-        loginLink.dataset.page =
-            "login.html";
-
-
-        loginLink.href =
-            "login.html";
-
-
-        loginLink.innerHTML =
+    } else {
+        section.insertAdjacentHTML(
+            "beforeend",
             `
+            <a
+                class="nav-link"
+                data-page="login.html"
+                href="login.html"
+            >
                 <i data-lucide="log-in"></i>
+                <span class="nav-text">Login</span>
+            </a>
 
-                <span class="nav-text">
-                    Login
-                </span>
-            `;
-
-
-        const signupLink =
-            document.createElement(
-                "a"
-            );
-
-
-        signupLink.className =
-            "nav-link";
-
-
-        signupLink.dataset.page =
-            "signup.html";
-
-
-        signupLink.href =
-            "signup.html";
-
-
-        signupLink.innerHTML =
-            `
+            <a
+                class="nav-link"
+                data-page="signup.html"
+                href="signup.html"
+            >
                 <i data-lucide="user-plus"></i>
-
-                <span class="nav-text">
-                    Sign Up
-                </span>
-            `;
-
-
-        accountSection.appendChild(
-            loginLink
-        );
-
-
-        accountSection.appendChild(
-            signupLink
-        );
-
-    }
-
-    else {
-
-        const userLink =
-            document.createElement(
-                "a"
-            );
-
-
-        userLink.className =
-            "nav-link";
-
-
-        userLink.dataset.page =
-            "account.html";
-
-
-        /* THIS WAS THE BUG */
-
-        userLink.href =
-            "account.html";
-
-
-        userLink.innerHTML =
+                <span class="nav-text">Sign Up</span>
+            </a>
             `
-                <i data-lucide="circle-user-round"></i>
+        );
 
-                <span class="nav-text"></span>
-            `;
-
-
-        userLink
-            .querySelector(
-                ".nav-text"
-            )
-            .textContent =
-            currentUser.name ||
-            "My Account";
-
-
-        const logoutButton =
-            document.createElement(
-                "button"
+        section
+            .querySelectorAll(".nav-link")
+            .forEach(link =>
+                link.addEventListener(
+                    "click",
+                    closeMobileSidebar
+                )
             );
-
-
-        logoutButton.type =
-            "button";
-
-
-        logoutButton.className =
-            "nav-link logout-btn";
-
-
-        logoutButton.innerHTML =
-            `
-                <i data-lucide="log-out"></i>
-
-                <span class="nav-text">
-                    Logout
-                </span>
-            `;
-
-
-        logoutButton.addEventListener(
-            "click",
-            function () {
-
-                localStorage.removeItem(
-                    "resqCurrentUser"
-                );
-
-
-                window.location.href =
-                    "index.html";
-
-            }
-        );
-
-
-        accountSection.appendChild(
-            userLink
-        );
-
-
-        accountSection.appendChild(
-            logoutButton
-        );
-
     }
-
 
     updateTopAccountButton();
-
-
-    icons();
-
-
     updateActiveNavigation();
-
+    icons();
 }
-
-
-/* =========================================
-   ACTIVE NAVIGATION
-========================================= */
-
-function updateActiveNavigation() {
-
-    const currentPage =
-        window.location.pathname
-            .split("/")
-            .pop()
-        ||
-        "index.html";
-
-
-    document
-        .querySelectorAll(
-            ".nav-link"
-        )
-        .forEach(
-            function (link) {
-
-                const page =
-                    link.dataset.page;
-
-
-                link.classList.toggle(
-                    "active",
-                    page === currentPage
-                );
-
-            }
-        );
-
-}
-
-
-/* =========================================
-   CLOSE MOBILE SIDEBAR
-========================================= */
-
-document
-    .querySelectorAll(
-        ".nav-link"
-    )
-    .forEach(
-        function (link) {
-
-            link.addEventListener(
-                "click",
-                function () {
-
-                    if (sidebar) {
-
-                        sidebar.classList.remove(
-                            "open"
-                        );
-
-                    }
-
-                }
-            );
-
-        }
-    );
-
-
-/* =========================================
-   INITIALIZE
-========================================= */
 
 updateAccountSection();
-
 updateTopAccountButton();
-
 updateActiveNavigation();
-
 icons();

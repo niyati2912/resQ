@@ -1493,3 +1493,583 @@
     }
 
 }
+
+/* =========================================
+   RESQ – FUNCTIONALITY / RESULT FIXES
+   Added for dynamic donor and hospital UI
+========================================= */
+
+
+/* =========================================
+   1. SEARCH MESSAGES
+========================================= */
+
+.search-success,
+.result-success {
+    margin: 16px 0;
+
+    padding: 13px 15px;
+
+    border-radius: 11px;
+
+    background: #edf7f0;
+    color: #26704a;
+
+    border: 1px solid #c4e4d0;
+
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+
+.search-error,
+.result-error {
+    margin: 16px 0;
+
+    padding: 13px 15px;
+
+    border-radius: 11px;
+
+    background: #fff0ed;
+    color: var(--terra-dark);
+
+    border: 1px solid #efc3ba;
+
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   2. FIND BLOOD – DONOR CARDS
+========================================= */
+
+.donor-card {
+    background: var(--white);
+
+    border: 1px solid var(--line);
+
+    border-radius: 16px;
+
+    padding: 20px;
+
+    margin-bottom: 16px;
+
+    box-shadow: var(--shadow);
+}
+
+
+.donor-card-top {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    margin-bottom: 16px;
+}
+
+
+.donor-avatar {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: var(--blush);
+
+    font-size: 22px;
+}
+
+
+.donor-card-top h2 {
+    margin: 0 0 4px;
+
+    font-size: 17px;
+
+    color: var(--ink);
+}
+
+
+.donor-card-top p {
+    margin: 0;
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+
+.blood-group-tag {
+    margin-left: auto;
+
+    padding: 7px 10px;
+
+    border-radius: 9px;
+
+    background: var(--terra);
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: 800;
+}
+
+
+.donor-card-info {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 14px;
+
+    padding: 13px 0;
+
+    margin-bottom: 16px;
+
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+
+.donor-card-info p {
+    margin: 0;
+
+    font-size: 12px;
+
+    color: var(--muted);
+}
+
+
+.contact-donor-btn {
+    width: 100%;
+
+    min-height: 44px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: var(--terra);
+
+    color: white;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+
+.contact-donor-btn:hover {
+    transform: translateY(-1px);
+
+    opacity: 0.92;
+}
+
+
+/* =========================================
+   3. CONTACT DONOR MODAL
+========================================= */
+
+.modal {
+    position: fixed;
+
+    inset: 0;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(0, 0, 0, 0.5);
+
+    z-index: 1000;
+}
+
+
+.modal.show {
+    display: flex;
+}
+
+
+.modal-content {
+    width: min(100%, 450px);
+
+    background: var(--white);
+
+    border-radius: 18px;
+
+    padding: 24px;
+
+    position: relative;
+
+    box-shadow: var(--shadow);
+}
+
+
+.close-modal {
+    position: absolute;
+
+    top: 12px;
+    right: 15px;
+
+    border: none;
+
+    background: transparent;
+
+    color: var(--muted);
+
+    font-size: 26px;
+
+    cursor: pointer;
+}
+
+
+/* =========================================
+   4. HOSPITAL SEARCH PANEL
+========================================= */
+
+.hospital-search-panel,
+.hospital-results-panel {
+    background: var(--white);
+
+    border: 1px solid var(--line);
+
+    border-radius: 18px;
+
+    padding: 22px;
+
+    box-shadow: var(--shadow);
+}
+
+
+.hospital-search-panel {
+    margin-bottom: 18px;
+}
+
+
+.hospital-search-panel label {
+    display: block;
+
+    margin-bottom: 9px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    color: var(--ink);
+}
+
+
+.hospital-search-row {
+    display: flex;
+
+    gap: 10px;
+}
+
+
+.hospital-search-row input {
+    flex: 1;
+
+    min-height: 48px;
+
+    padding: 0 14px;
+
+    border: 1px solid var(--line);
+
+    border-radius: 12px;
+
+    background: var(--cream);
+
+    color: var(--ink);
+
+    outline: none;
+}
+
+
+/* =========================================
+   5. MAP FILTERS
+========================================= */
+
+.map-filters {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-top: 14px;
+}
+
+
+.map-filter {
+    min-height: 36px;
+
+    padding: 0 13px;
+
+    border-radius: 9px;
+
+    background: var(--cream-2);
+
+    color: var(--muted);
+
+    border: 1px solid var(--line);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+.map-filter.active {
+    background: var(--terra);
+
+    border-color: var(--terra);
+
+    color: white;
+}
+
+
+/* =========================================
+   6. MAP STATUS MESSAGE
+========================================= */
+
+.map-message {
+    margin-top: 13px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+.map-message-error {
+    color: var(--terra-dark);
+}
+
+
+/* =========================================
+   7. HOSPITAL RESULTS
+========================================= */
+
+.hospital-results-head {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding-bottom: 16px;
+
+    border-bottom: 1px solid var(--line);
+}
+
+
+.hospital-results-head h2 {
+    margin: 4px 0 0;
+
+    font-size: 20px;
+}
+
+
+.result-count {
+    padding: 6px 10px;
+
+    border-radius: 8px;
+
+    background: var(--blush);
+
+    color: var(--terra-dark);
+
+    font-size: 10px;
+
+    font-weight: 800;
+}
+
+
+.empty-hospitals {
+    padding: 32px 5px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+
+.empty-hospitals strong {
+    display: block;
+
+    color: var(--ink);
+
+    margin-bottom: 6px;
+}
+
+
+/* =========================================
+   8. HOSPITAL RESULT CARDS
+========================================= */
+
+.hospital-item {
+    padding: 18px 0;
+
+    border-bottom: 1px solid var(--line);
+}
+
+
+.hospital-item:last-child {
+    border-bottom: none;
+}
+
+
+.hospital-item-top {
+    margin-bottom: 9px;
+}
+
+
+.facility-type {
+    display: inline-flex;
+
+    padding: 5px 9px;
+
+    border-radius: 7px;
+
+    background: var(--blush);
+
+    color: var(--terra-dark);
+
+    font-size: 10px;
+
+    font-weight: 800;
+}
+
+
+.facility-type.blood-bank {
+    background: var(--cream-2);
+
+    color: var(--ink);
+}
+
+
+.hospital-item h3 {
+    margin: 0 0 7px;
+
+    color: var(--ink);
+
+    font-size: 15px;
+}
+
+
+.hospital-item p {
+    margin: 5px 0;
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+.hospital-focus-btn {
+    margin-top: 12px;
+
+    min-height: 38px;
+
+    font-size: 11px;
+}
+
+
+/* =========================================
+   9. LEAFLET MAP
+========================================= */
+
+#resqMap {
+    width: 100%;
+
+    min-height: 610px;
+
+    border-radius: 16px;
+
+    overflow: hidden;
+}
+
+
+.hospital-layout .map-box {
+    min-height: 610px;
+
+    overflow: hidden;
+}
+
+
+/* =========================================
+   10. DARK MODE SUPPORT
+========================================= */
+
+body.dark .search-success,
+body.dark .result-success {
+    background: rgba(38, 112, 74, 0.2);
+
+    color: #9be3b7;
+
+    border-color: rgba(155, 227, 183, 0.25);
+}
+
+
+body.dark .search-error,
+body.dark .result-error {
+    background: rgba(190, 75, 60, 0.16);
+
+    color: #ffb5aa;
+
+    border-color: rgba(255, 181, 170, 0.22);
+}
+
+
+/* =========================================
+   11. MOBILE
+========================================= */
+
+@media (max-width: 850px) {
+
+    .hospital-search-row {
+        flex-direction: column;
+    }
+
+
+    .hospital-search-row .btn {
+        width: 100%;
+    }
+
+
+    #resqMap,
+    .hospital-layout .map-box {
+        min-height: 450px;
+    }
+
+
+    .donor-card-info {
+        flex-direction: column;
+
+        gap: 8px;
+    }
+}
